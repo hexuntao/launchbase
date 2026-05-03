@@ -11,7 +11,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@repo/security": "workspace:*",
     "@repo/ui": "workspace:*",
+    "@rescale/nemo": "^2.2.0",
     "next": "catalog:next",
     "react": "catalog:react",
     "react-dom": "catalog:react"
