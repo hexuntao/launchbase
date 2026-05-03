@@ -4,6 +4,7 @@ packages:
   - "tooling/*"
 
 allowBuilds:
+  fallow: true
   lefthook: true
 
 catalog:
