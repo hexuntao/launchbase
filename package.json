@@ -1,0 +1,16 @@
+{
+  "name": "vazen",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {},
+  "packageManager": "pnpm@10.33.2",
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.5.3",
+    "@commitlint/config-conventional": "^20.5.3",
+    "lefthook": "^2.1.6"
+  }
+}
