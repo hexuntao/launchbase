@@ -106,6 +106,9 @@ report.*.json
 *.seed
 pids
 
+# generated content
+.source
+
 # Certificates
 *.cer
 *.crt

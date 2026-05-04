@@ -4,7 +4,7 @@ packages:
   - "tooling/*"
 
 allowBuilds:
-  '@sentry/cli': true
+  "@sentry/cli": true
   core-js: true
   esbuild: true
   fallow: true
@@ -22,6 +22,7 @@ catalog:
   tailwindcss: ^4.2.4
   typescript: ^5.9.3
   zod: 4.4.3
+  motion: ^12.38.0
 catalogs:
   auth:
     "@better-auth/infra": 0.2.5
