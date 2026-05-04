@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import "@/lib/orpc/server";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { cn } from "@repo/ui/lib/utils";
