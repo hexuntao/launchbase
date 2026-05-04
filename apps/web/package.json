@@ -12,10 +12,13 @@
   },
   "dependencies": {
     "@repo/analytics": "workspace:*",
+    "@repo/auth": "workspace:*",
     "@repo/security": "workspace:*",
     "@repo/ui": "workspace:*",
     "@rescale/nemo": "^2.2.0",
+    "better-auth": "^1.6.9",
     "next": "catalog:next",
+    "nuqs": "^2.8.9",
     "react": "catalog:react",
     "react-dom": "catalog:react"
   },

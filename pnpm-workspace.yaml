@@ -28,3 +28,6 @@ catalogs:
     "@types/react-dom": 19.2.3
     react: 19.2.5
     "react-dom": 19.2.5
+  auth:
+    better-auth: 1.6.9
+    "@better-auth/infra": 0.2.5
