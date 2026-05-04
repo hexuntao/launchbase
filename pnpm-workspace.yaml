@@ -19,7 +19,7 @@ catalog:
   "server-only": 0.0.1
   tailwindcss: ^4.2.4
   typescript: ^5.9.3
-  zod: 4.4.2
+  zod: 4.4.3
 catalogs:
   next:
     next: 16.2.4
@@ -31,3 +31,10 @@ catalogs:
   auth:
     better-auth: 1.6.9
     "@better-auth/infra": 0.2.5
+  orpc:
+    "@orpc/client": 1.14.1
+    "@orpc/server": 1.14.1
+    "@orpc/tanstack-query": 1.14.1
+  tanstack:
+    "@tanstack/react-query": ^5.100.9
+    "@tanstack/react-query-devtools": ^5.100.9

@@ -11,11 +11,16 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@orpc/client": "catalog:orpc",
+    "@orpc/server": "catalog:orpc",
+    "@orpc/tanstack-query": "catalog:orpc",
     "@repo/analytics": "workspace:*",
     "@repo/auth": "workspace:*",
+    "@repo/rpc": "workspace:*",
     "@repo/security": "workspace:*",
     "@repo/ui": "workspace:*",
     "@rescale/nemo": "^2.2.0",
+    "@tanstack/react-query": "catalog:tanstack",
     "better-auth": "^1.6.9",
     "next": "catalog:next",
     "nuqs": "^2.8.9",
@@ -25,6 +30,7 @@
   "devDependencies": {
     "@repo/tsconfig": "workspace:*",
     "@tailwindcss/postcss": "catalog:",
+    "@tanstack/react-query-devtools": "catalog:tanstack",
     "@types/node": "catalog:",
     "@types/react": "catalog:react",
     "@types/react-dom": "catalog:react",

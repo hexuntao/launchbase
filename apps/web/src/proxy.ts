@@ -1,7 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createNEMO } from "@rescale/nemo";
 import { securityHeadersMiddleware, securityHeadersOptions } from "@repo/security/security-headers";
 import type { MiddlewareConfig } from "@rescale/nemo";
+import { getSessionCookie } from "better-auth/cookies";
 const securityHeaders = securityHeadersMiddleware(securityHeadersOptions);
 
 const middlewares = {
@@ -16,6 +17,17 @@ const middlewares = {
       });
 
       return response;
+    },
+  ],
+  "/admin/:path*": [
+    async (request: NextRequest) => {
+      const sessionCookie = getSessionCookie(request, { cookiePrefix: "vazen" });
+      if (!sessionCookie) {
+        const callbackUrl = encodeURIComponent(request.nextUrl.pathname);
+        return NextResponse.redirect(new URL(`/auth/login?next=${callbackUrl}`, request.url));
+      }
+
+      return NextResponse.next();
     },
   ],
 } satisfies MiddlewareConfig;
