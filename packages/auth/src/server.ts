@@ -15,7 +15,7 @@ export const auth = betterAuth({
   appName: "vazen",
   baseURL: {
     allowedHosts: [
-      "web.vazen.com", // Production,
+      "web.vazen.dev", // Production,
       "*.vercel.app", // All Vercel previews
       "localhost:3000", // Local development
     ],
