@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withSentry } from "@repo/telemetry/sentry/with-sentry";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
@@ -7,5 +8,9 @@ const nextConfig: NextConfig = {
   typedRoutes: true,
   transpilePackages: ["@repo/ui"],
 };
+const NextApp = () => {
+  const plugins = [withSentry];
+  return plugins.reduce((config, plugin) => plugin(config), nextConfig);
+};
 
-export default nextConfig;
+export default NextApp;

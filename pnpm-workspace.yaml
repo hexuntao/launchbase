@@ -4,6 +4,7 @@ packages:
   - "tooling/*"
 
 allowBuilds:
+  '@sentry/cli': true
   core-js: true
   esbuild: true
   fallow: true
@@ -12,6 +13,7 @@ allowBuilds:
   sharp: true
 
 catalog:
+  "@sentry/nextjs": 10.51.0
   "@t3-oss/env-nextjs": ^0.13.11
   "@tailwindcss/postcss": ^4
   "@types/node": ^24.12.2
@@ -21,20 +23,20 @@ catalog:
   typescript: ^5.9.3
   zod: 4.4.3
 catalogs:
+  auth:
+    "@better-auth/infra": 0.2.5
+    better-auth: 1.6.9
   next:
     next: 16.2.4
+  orpc:
+    "@orpc/client": 1.14.1
+    "@orpc/server": 1.14.1
+    "@orpc/tanstack-query": 1.14.1
   react:
     "@types/react": 19.2.14
     "@types/react-dom": 19.2.3
     react: 19.2.5
     "react-dom": 19.2.5
-  auth:
-    better-auth: 1.6.9
-    "@better-auth/infra": 0.2.5
-  orpc:
-    "@orpc/client": 1.14.1
-    "@orpc/server": 1.14.1
-    "@orpc/tanstack-query": 1.14.1
   tanstack:
     "@tanstack/react-query": ^5.100.9
     "@tanstack/react-query-devtools": ^5.100.9

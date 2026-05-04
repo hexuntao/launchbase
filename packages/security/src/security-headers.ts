@@ -22,6 +22,7 @@ export const securityHeadersOptions: NoseconeOptions = {
         ...defaults.contentSecurityPolicy.directives.connectSrc,
         "https://ogohtsopo.vazen.dev",
         "https://*.posthog.com",
+        "https://*.sentry.io",
       ],
       workerSrc: [...defaults.contentSecurityPolicy.directives.workerSrc, "blob:", "data:"],
       imgSrc: [...defaults.contentSecurityPolicy.directives.imgSrc, "https://*.posthog.com"],

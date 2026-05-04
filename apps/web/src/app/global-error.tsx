@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { fontsVariable } from "@repo/ui/fonts";
 import { Button } from "@repo/ui/button";
+import * as Sentry from "@sentry/nextjs";
 
 interface GlobalErrorProps {
   readonly error: Error & { digest?: string };
@@ -11,7 +12,10 @@ interface GlobalErrorProps {
 
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
   useEffect(() => {
-    //TODO: add error tracking service
+    Sentry.captureException(error, {
+      tags: { area: "global-error" },
+      extra: { digest: error.digest },
+    });
   }, [error]);
 
   return (
