@@ -10,6 +10,7 @@
     "docker:clean": "docker compose down -v",
     "docker:down": "docker compose down",
     "docker:up": "docker compose up -d",
+    "docs:dev": "turbo dev -F docs...",
     "e2e": "turbo e2e",
     "fallow": "fallow",
     "fallow:dead": "fallow dead-code --format human",

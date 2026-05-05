@@ -54,6 +54,10 @@ const stacks = [
     icon: <Icons.Sentry className="size-4" />,
     stackName: "Sentry",
   },
+  {
+    icon: <Icons.Playwright className="size-4" />,
+    stackName: "Playwright",
+  },
   // {
   //   icon: <Icons.C15T className="size-4" />,
   //   stackName: "c15t",
