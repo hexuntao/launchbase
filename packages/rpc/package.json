@@ -17,8 +17,7 @@
   },
   "dependencies": {
     "@repo/auth": "workspace:*",
-    "@repo/db": "workspace:*",
-    "drizzle-orm": "catalog:"
+    "@repo/db": "workspace:*"
   },
   "devDependencies": {
     "@repo/tsconfig": "workspace:*",

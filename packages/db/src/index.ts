@@ -4,6 +4,7 @@ import postgres from "postgres";
 import "server-only";
 import { env } from "../env";
 import * as schema from "./schema";
+export * from "drizzle-orm";
 
 const globalForDb = globalThis as unknown as {
   client: postgres.Sql | undefined;
