@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "build": "next build",
+    "clean": "rimraf .next .source .turbo node_modules",
     "dev": "next dev",
     "postinstall": "fumadocs-mdx",
     "start": "next start",
-    "clean": "rimraf .next .source .turbo node_modules",
     "typecheck": "fumadocs-mdx && tsc --noEmit"
   },
   "dependencies": {

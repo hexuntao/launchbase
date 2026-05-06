@@ -21,6 +21,8 @@ export default defineConfig({
     "^[.]",
   ],
   sortTailwindcss: {},
-  sortPackageJson: false,
+  sortPackageJson: {
+    sortScripts: true,
+  },
   ignorePatterns: [],
 });
