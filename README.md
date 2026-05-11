@@ -1,57 +1,204 @@
 # LaunchBase
 
-[![LaunchBase](./github.svg)](https://github.com/hexuntao/launchbase)
+LaunchBase is a production-ready monorepo starter built from Vazen and evolved for real-world product development. It includes CI, dependency automation, AI coding guidelines, Vercel deployment readiness, and a clean foundation for modern TypeScript full-stack applications.
 
-LaunchBase is a production-ready monorepo starter built from `stack-found/vazen` and evolved for real-world product development.
+中文说明：LaunchBase 保留 Vazen 的上游来源与 MIT 许可义务，并在此基础上强化产品化文档、CI、依赖更新、AI 编码规范和部署准备。
 
-## What is LaunchBase?
+## Why LaunchBase
 
-- **LaunchBase** :: a clean foundation for modern TypeScript full-stack applications.
-- **Upstream** :: derived from [`stack-found/vazen`](https://github.com/stack-found/vazen), with attribution retained.
+Modern product teams need more than a blank Next.js app. LaunchBase provides a small but production-oriented base that keeps the boring parts explicit: package boundaries, environment validation, CI checks, dependency review, Vercel readiness, security headers, auth, database access, and AI-friendly coding rules.
 
-### Dev Toolkit
+## Features
 
-- [**pnpm**](https://pnpm.io) :: Fast, disk-efficient package manager
-- [**portless**](https://portless.sh) :: Clean local hostnames for app development
-- [**commitlint**](https://commitlint.js.org/) :: Enforces Conventional Commits
-- [**lefthook**](https://lefthook.dev/) :: Fast Git hooks (pre-commit, pre-push, etc.)
-- [**fallow**](https://fallow.tools) :: Dead-code analysis and project cleanup
-- [**oxfmt**](https://oxc.rs/docs/guide/usage/formatter.html) :: Opinionated code formatter
-- [**oxlint**](https://oxc.rs/docs/guide/usage/linter.html) :: Static analysis and linting
-- [**Playwright**](https://playwright.dev/) :: End-to-end testing for browser workflows
-- [**Docker**](https://www.docker.com/) :: Local development via Docker Compose
-- [**t3-oss/env-nextjs**](https://env.t3.gg/) :: Validates environment variables at build-time
-- [**Nosecone**](https://docs.arcjet.com/nosecone/quick-start) :: Security headers made simple (Arcjet’s OSS library)
+- Production-ready TypeScript monorepo structure.
+- Next.js apps for product UI and documentation.
+- Shared UI, auth, database, Redis, RPC, analytics, telemetry, security, and email packages.
+- CI for install, lint, typecheck, and build.
+- Renovate and Dependabot configuration for dependency automation.
+- Vercel-ready app structure and environment variable documentation.
+- Root and package-local `AGENTS.md` files for AI coding workflows.
+- Upstream sync guidance for tracking `stack-found/vazen`.
 
-### Tech Stack
+## Tech Stack
 
-- [**Next.js v16**](https://nextjs.org/) :: React framework with app router
-- [**React.js v19**](https://react.dev/) :: Latest React with React compiler enabled
-- [**Typescript**](https://www.typescriptlang.org/) :: Type-safe development
-- [**Tailwind CSS v4**](https://tailwindcss.com/) :: Utility-first CSS framework
-- [**oRPC**](https://orpc.dev/) :: tRPC alternative with built-in OpenAPI support
-- [**Tanstack Query**](https://tanstack.com/query/latest) :: Data fetching and caching
-- [**PostgreSQL**](https://postgresql.org/) :: Primary database
-- [**Upstash**](https://upstash.com) :: Severless redis
-- [**Drizzle ORM**](https://orm.drizzle.team/) :: Sequel (SQL) Statement Builder
-- [**Better-Auth**](https://better-auth.com/) :: Comprehensive authentication framework
-- [**React Email**](https://react.email/) :: React-based email templates
-- [**PostHog**](https://posthog.com/) :: Web analytics
-- [**Sentry**](https://sentry.io/) :: Error monitoring & logging
-- [**Evlog**](https://evlog.dev) :: Simple logs, wide events, and structured logging
+- **Runtime:** Node.js 22+
+- **Package manager:** pnpm 10
+- **Build system:** Turborepo
+- **Framework:** Next.js 16, React 19
+- **Styling:** Tailwind CSS 4, shared `@repo/ui`
+- **API:** oRPC, TanStack Query
+- **Auth:** Better Auth
+- **Database:** PostgreSQL, Drizzle ORM
+- **Cache:** Upstash Redis
+- **Email:** React Email
+- **Analytics:** PostHog
+- **Telemetry:** Sentry, Evlog
+- **Testing:** Playwright for e2e
+- **Tooling:** oxlint, oxfmt, commitlint, lefthook
 
-## Local Development
+## Monorepo Structure
 
-- Uses [**portless**](https://portless.sh/) :: apps run on clean hostnames instead of raw ports.
-- Local hosts: `web.launchbase.localhost` and `docs.launchbase.localhost`
-- Dev scripts in [`apps/web/package.json`](apps/web/package.json) and [`apps/docs/package.json`](apps/docs/package.json) are wired to portless.
+```txt
+apps/
+  web/      Primary LaunchBase product app
+  docs/     Documentation site
+packages/
+  analytics/  PostHog integration
+  auth/       Better Auth setup
+  db/         Drizzle schema and PostgreSQL client
+  email/      React Email templates
+  redis/      Upstash Redis client and rate limiting
+  rpc/        oRPC context and router exports
+  security/   Security headers and CSP
+  telemetry/  Sentry and Evlog integrations
+  ui/         Shared UI primitives, styles, and fonts
+tooling/      Shared workspace tooling
+e2e/          Playwright end-to-end tests
+```
 
-**Local hosts:**
-- `web.launchbase.localhost`
-- `docs.launchbase.localhost`
+## Getting Started
 
-The `dev` scripts inside [`apps/web/package.json`](apps/web/package.json) and [`apps/docs/package.json`](apps/docs/package.json) are wired to portless.
+```bash
+pnpm install
+cp .env.example .env
+cp apps/web/.env.example apps/web/.env
+pnpm docker:up
+pnpm web:dev
+```
 
-### License
+The web app uses portless and is configured for `web.launchbase.localhost`. The docs app is configured for `docs.launchbase.localhost`.
 
-- MIT License :: See the [LICENSE](LICENSE) file for details.
+## Development Commands
+
+```bash
+pnpm dev          # run workspace dev tasks
+pnpm web:dev      # run the web app
+pnpm docs:dev     # run the docs app
+pnpm lint         # run lint tasks
+pnpm typecheck    # run TypeScript checks
+pnpm build        # build all apps
+pnpm web:e2e      # run web Playwright tests
+pnpm docker:up    # start local Postgres and Redis HTTP bridge
+pnpm docker:down  # stop local services
+```
+
+## Environment Variables
+
+All env keys below come from the current codebase. Do not add undocumented keys unless the code reads them.
+
+### Local Development
+
+Required for the web app and database packages:
+
+```env
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/launchbase_db"
+UPSTASH_REDIS_REST_URL="http://localhost:8079"
+UPSTASH_REDIS_REST_TOKEN="launchbase"
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+```
+
+Optional local integrations:
+
+```env
+NEXT_PUBLIC_POSTHOG_KEY=""
+NEXT_PUBLIC_POSTHOG_HOST=""
+NEXT_PUBLIC_SENTRY_DSN=""
+NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT=""
+SENTRY_ORG=""
+SENTRY_PROJECT=""
+SENTRY_AUTH_TOKEN=""
+```
+
+### Vercel Deployment
+
+Set these in Vercel project environment variables:
+
+- `DATABASE_URL`
+- `UPSTASH_REDIS_REST_URL`
+- `UPSTASH_REDIS_REST_TOKEN`
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+
+Optional Vercel integrations:
+
+- `NEXT_PUBLIC_POSTHOG_KEY`
+- `NEXT_PUBLIC_POSTHOG_HOST`
+- `NEXT_PUBLIC_SENTRY_DSN`
+- `NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT`
+- `SENTRY_ORG`
+- `SENTRY_PROJECT`
+- `SENTRY_AUTH_TOKEN`
+
+Sentry is optional. If Sentry is not configured, keep its values empty and do not set a real auth token.
+
+## GitHub Automation
+
+CI runs on pushes and pull requests to `main`:
+
+```bash
+pnpm install --frozen-lockfile
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+Dependency automation is configured through Renovate and Dependabot:
+
+- Renovate: `renovate.json`
+- Dependabot: `.github/dependabot.yml`
+
+Patch updates may be automated after a cooldown. Minor, major, catalog, and security-sensitive updates require human review according to the repository automation config.
+
+## Vercel Deployment
+
+Deploy `apps/web` as the primary app. Use Node.js 22 and pnpm. The app expects the env variables listed above and uses `@repo/*` workspace packages at build time.
+
+Recommended checks before deploying:
+
+```bash
+pnpm install --frozen-lockfile
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+## Upstream Sync with Vazen
+
+LaunchBase is derived from [`stack-found/vazen`](https://github.com/stack-found/vazen). The upstream source must remain visible and must not be hidden in docs, license notes, or sync workflows.
+
+Use a dedicated `upstream-sync` branch for upstream updates:
+
+```bash
+git checkout -b upstream-sync
+git fetch vazen
+git merge vazen/main
+pnpm install --frozen-lockfile
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+Resolve conflicts by preserving LaunchBase productization work while reviewing upstream Vazen changes explicitly.
+
+## AI Coding with AGENTS.md
+
+This repository includes AI coding instructions at the root and inside each app/package:
+
+- `AGENTS.md`
+- `apps/web/AGENTS.md`
+- `apps/docs/AGENTS.md`
+- `packages/*/AGENTS.md`
+
+AI agents must read the relevant local file before editing code, preserve package boundaries, avoid secrets, keep upstream attribution, and validate changes with lint, typecheck, and build.
+
+## License
+
+LaunchBase is licensed under the MIT License. See [LICENSE](LICENSE).
+
+This repository preserves upstream MIT license obligations from Vazen. See [NOTICE.md](NOTICE.md) for attribution details.
+
+## Credits
+
+- Upstream project: [`stack-found/vazen`](https://github.com/stack-found/vazen)
+- LaunchBase productization: `hexuntao/launchbase`
