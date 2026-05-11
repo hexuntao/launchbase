@@ -21,7 +21,7 @@ const middlewares = {
   ],
   "/admin/:path*": [
     async (request: NextRequest) => {
-      const sessionCookie = getSessionCookie(request, { cookiePrefix: "vazen" });
+      const sessionCookie = getSessionCookie(request, { cookiePrefix: "launchbase" });
       if (!sessionCookie) {
         const callbackUrl = encodeURIComponent(request.nextUrl.pathname);
         return NextResponse.redirect(new URL(`/auth/login?next=${callbackUrl}`, request.url));

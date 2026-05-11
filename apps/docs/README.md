@@ -1,3 +1,3 @@
-# vazen.dev
+# LaunchBase Docs
 
-The official website and documentation site of vazen
+The documentation site for LaunchBase.

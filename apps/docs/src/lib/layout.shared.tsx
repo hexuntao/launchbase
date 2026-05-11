@@ -7,10 +7,10 @@ export function baseOptions(): BaseLayoutProps {
       title: (
         <div className="flex items-center gap-2">
           <Icons.Logo className="size-6" />
-          <span className="font-asul text-2xl">Vazen</span>
+          <span className="font-asul text-2xl">LaunchBase</span>
         </div>
       ),
     },
-    githubUrl: "https://github.com/stack-found/vazen",
+    githubUrl: "https://github.com/hexuntao/launchbase",
   };
 }

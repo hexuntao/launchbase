@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   transpilePackages: ["@repo/ui"],
   typedRoutes: true,
-  allowedDevOrigins: ["docs.vazen.localhost", "*.docs.vazen.localhost"],
+  allowedDevOrigins: ["docs.launchbase.localhost", "*.docs.launchbase.localhost"],
 };
 
 const NextApp = () => {

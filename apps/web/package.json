@@ -41,7 +41,7 @@
     "typescript": "catalog:"
   },
   "portless": {
-    "name": "web.vazen",
+    "name": "web.launchbase",
     "script": "dev:app"
   }
 }

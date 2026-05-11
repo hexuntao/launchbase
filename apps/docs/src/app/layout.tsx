@@ -7,10 +7,10 @@ import { fontsVariable } from "@repo/ui/fonts";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s :: Vazen",
-    default: "Vazen",
+    template: "%s :: LaunchBase",
+    default: "LaunchBase",
   },
-  description: "A production grade monorepo starter to build full-stack applications",
+  description: "A production-ready monorepo starter for modern TypeScript products",
   icons: {
     icon: [
       {
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  metadataBase: new URL("https://vazen.dev"),
+  metadataBase: new URL("https://launchbase.dev"),
 };
 
 export const viewport: Viewport = {

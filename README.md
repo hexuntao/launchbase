@@ -1,12 +1,13 @@
-# vazen
+# LaunchBase
 
-[![VAZEN](./github.svg)](https://github.com/hashversion/vazen)
+[![LaunchBase](./github.svg)](https://github.com/hexuntao/launchbase)
 
-> - Demo site :: [web.vazen.dev](https://web.vazen.dev)
+LaunchBase is a production-ready monorepo starter built from `stack-found/vazen` and evolved for real-world product development.
 
-## What is vazen?
+## What is LaunchBase?
 
-- [**Vazen**](https://vazen.dev) :: velocity + (minimal & simplicity)
+- **LaunchBase** :: a clean foundation for modern TypeScript full-stack applications.
+- **Upstream** :: derived from [`stack-found/vazen`](https://github.com/stack-found/vazen), with attribution retained.
 
 ### Dev Toolkit
 
@@ -42,12 +43,12 @@
 ## Local Development
 
 - Uses [**portless**](https://portless.sh/) :: apps run on clean hostnames instead of raw ports.
-- Local hosts: `web.vazen.localhost` and `docs.vazen.localhost`
+- Local hosts: `web.launchbase.localhost` and `docs.launchbase.localhost`
 - Dev scripts in [`apps/web/package.json`](apps/web/package.json) and [`apps/docs/package.json`](apps/docs/package.json) are wired to portless.
 
 **Local hosts:**
-- `web.vazen.localhost`
-- `docs.vazen.localhost`
+- `web.launchbase.localhost`
+- `docs.launchbase.localhost`
 
 The `dev` scripts inside [`apps/web/package.json`](apps/web/package.json) and [`apps/docs/package.json`](apps/docs/package.json) are wired to portless.
 

@@ -15,20 +15,20 @@ export default function HomePage() {
               transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="text-start text-2xl text-balance"
             >
-              A production-grade monorepo starter for building full-stack applications
+              LaunchBase is a production-ready monorepo starter for building modern TypeScript products
             </motion.h1>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              <CopyCodeBlock value="npx degit stack-found/vazen <Your-Project>" />
+              <CopyCodeBlock value="npx degit hexuntao/launchbase <Your-Project>" />
             </motion.div>
             <motion.a
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.16, ease: [0.25, 0.46, 0.45, 0.94] }}
-              href="https://web.vazen.dev"
+              href="https://web.launchbase.dev"
               target="_blank"
               className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-black px-4 py-3 text-[14px] text-white dark:bg-white dark:text-black"
             >

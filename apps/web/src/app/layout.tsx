@@ -5,8 +5,8 @@ import { Providers } from "@/app/providers";
 import { fontsVariable } from "@repo/ui/fonts";
 
 export const metadata: Metadata = {
-  title: "Vazen",
-  description: "A production grade monorepo starter to build full-stack applications",
+  title: "LaunchBase",
+  description: "A production-ready monorepo starter for modern TypeScript products",
   alternates: { canonical: "/" },
   icons: {
     icon: [

@@ -33,7 +33,7 @@
     "typescript": "catalog:"
   },
   "portless": {
-    "name": "docs.vazen",
+    "name": "docs.launchbase",
     "script": "dev:docs"
   }
 }
