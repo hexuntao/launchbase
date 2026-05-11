@@ -35,13 +35,19 @@ DATABASE_URL="postgresql://postgres:postgres@localhost:5432/launchbase_db"
 UPSTASH_REDIS_REST_URL="http://localhost:8079"
 UPSTASH_REDIS_REST_TOKEN="launchbase"
 BETTER_AUTH_SECRET="replace-with-at-least-32-random-characters"
+```
+
+可选的 Google OAuth 集成，仅在启用 Google 登录时需要：
+
+```txt
 GOOGLE_CLIENT_ID=""
 GOOGLE_CLIENT_SECRET=""
 ```
 
-可选集成：
+可选的 analytics 和 telemetry 集成：
 
 ```txt
+NEXT_PUBLIC_ASSET_ORIGIN=""
 NEXT_PUBLIC_POSTHOG_KEY=""
 NEXT_PUBLIC_POSTHOG_HOST=""
 NEXT_PUBLIC_SENTRY_DSN=""

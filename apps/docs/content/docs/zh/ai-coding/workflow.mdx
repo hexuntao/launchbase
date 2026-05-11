@@ -1,0 +1,40 @@
+---
+title: AI 编码工作流
+description: 在 LaunchBase 中安全使用 Codex、Claude Code 和其他 AI coding agent。
+icon: Bot
+---
+
+## 必须阅读
+
+修改文件前，AI coding agent 必须阅读：
+
+- 根目录 `AGENTS.md`。
+- 相关 app 或 package 的 `AGENTS.md`。
+- 涉及 UI 时阅读 `apps/web/DESIGN.md`。
+
+Agent 还应阅读计划修改的文件，以及定义现有模式的相邻测试或文档。
+
+## 推荐流程
+
+1. 阅读相关文件并识别现有模式。
+2. 对非简单改动提出最小计划。
+3. 只编辑能解决任务的最小范围。
+4. 运行相关验证命令。
+5. 总结修改文件、验证结果和剩余风险。
+
+## 禁止事项
+
+- 不要提交 secrets、tokens、DSNs、API keys 或 `.env` 文件。
+- 不要绕过、删除或削弱 CI、lint、typecheck 或 build 检查。
+- 不要修改无关架构或 package ownership。
+- 不要隐藏 LaunchBase 派生自上游 `stack-found/vazen` 的事实。
+- 不要把 `apps/web/src/proxy.ts` 当成 admin 权限边界。
+
+## Codex prompt 示例
+
+```txt
+You are working in hexuntao/launchbase. Before editing, read root AGENTS.md,
+the relevant app/package AGENTS.md, and nearby code. Make the smallest change
+that solves the task, preserve Vazen attribution, do not commit secrets, and
+run pnpm lint, pnpm typecheck, and pnpm build before summarizing results.
+```

@@ -1,0 +1,37 @@
+---
+title: Admin Authorization
+description: Place admin authorization on server-side boundaries.
+icon: ShieldCheck
+---
+
+## Proxy is not an authorization boundary
+
+`apps/web/src/proxy.ts` only improves UX by redirecting unauthenticated users away from admin routes. It checks for a session cookie, not the current user's role or database-backed session state.
+
+Do not treat proxy redirects as permission checks. Real authorization belongs in server-side code that can read the session and enforce the current role.
+
+Use one of these boundaries for admin-only behavior:
+
+- Server components.
+- Route handlers.
+- Server actions.
+- RPC procedures built with `adminProcedure`.
+
+## RPC example
+
+Use `adminProcedure` for admin-only RPC handlers:
+
+```ts
+import { adminProcedure } from "../orpc";
+
+export const appRouter = {
+  adminStats: adminProcedure.handler(({ context }) => {
+    return {
+      userId: context.user.id,
+      role: context.user.role,
+    };
+  }),
+};
+```
+
+`adminProcedure` returns `UNAUTHORIZED` when no session exists and `FORBIDDEN` when the user is not an admin. Keep admin reads and writes behind that procedure or an equivalent server-side check.

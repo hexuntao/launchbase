@@ -103,13 +103,19 @@ DATABASE_URL="postgresql://postgres:postgres@localhost:5432/launchbase_db"
 UPSTASH_REDIS_REST_URL="http://localhost:8079"
 UPSTASH_REDIS_REST_TOKEN="launchbase"
 BETTER_AUTH_SECRET="replace-with-at-least-32-random-characters"
+```
+
+可选的 Google OAuth 集成，仅在启用 Google 登录时需要：
+
+```env
 GOOGLE_CLIENT_ID=""
 GOOGLE_CLIENT_SECRET=""
 ```
 
-可选的本地集成：
+可选的本地 analytics 和 telemetry 集成：
 
 ```env
+NEXT_PUBLIC_ASSET_ORIGIN=""
 NEXT_PUBLIC_POSTHOG_KEY=""
 NEXT_PUBLIC_POSTHOG_HOST=""
 NEXT_PUBLIC_SENTRY_DSN=""
@@ -127,11 +133,15 @@ SENTRY_AUTH_TOKEN=""
 - `UPSTASH_REDIS_REST_URL`
 - `UPSTASH_REDIS_REST_TOKEN`
 - `BETTER_AUTH_SECRET`
+
+可选的 Google OAuth 变量，仅在启用 Google 登录时需要：
+
 - `GOOGLE_CLIENT_ID`
 - `GOOGLE_CLIENT_SECRET`
 
 可选的 Vercel 集成：
 
+- `NEXT_PUBLIC_ASSET_ORIGIN`
 - `NEXT_PUBLIC_POSTHOG_KEY`
 - `NEXT_PUBLIC_POSTHOG_HOST`
 - `NEXT_PUBLIC_SENTRY_DSN`

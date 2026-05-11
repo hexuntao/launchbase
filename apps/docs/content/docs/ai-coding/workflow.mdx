@@ -1,0 +1,40 @@
+---
+title: AI Coding Workflow
+description: Use Codex, Claude Code, and other AI coding agents safely in LaunchBase.
+icon: Bot
+---
+
+## Required reading
+
+Before changing files, an AI coding agent must read:
+
+- Root `AGENTS.md`.
+- The relevant app or package `AGENTS.md`.
+- `apps/web/DESIGN.md` for UI work.
+
+The agent should also read the files it plans to edit and nearby tests or docs that define the existing pattern.
+
+## Recommended workflow
+
+1. Read relevant files and identify existing patterns.
+2. Propose a minimal plan for non-trivial changes.
+3. Edit the smallest scope that solves the task.
+4. Run the relevant validation commands.
+5. Summarize changed files, validation results, and remaining risks.
+
+## Forbidden actions
+
+- Do not commit secrets, tokens, DSNs, API keys, or `.env` files.
+- Do not bypass, remove, or weaken CI, lint, typecheck, or build checks.
+- Do not change unrelated architecture or package ownership.
+- Do not hide that LaunchBase is derived from upstream `stack-found/vazen`.
+- Do not treat `apps/web/src/proxy.ts` as an admin authorization boundary.
+
+## Codex prompt example
+
+```txt
+You are working in hexuntao/launchbase. Before editing, read root AGENTS.md,
+the relevant app/package AGENTS.md, and nearby code. Make the smallest change
+that solves the task, preserve Vazen attribution, do not commit secrets, and
+run pnpm lint, pnpm typecheck, and pnpm build before summarizing results.
+```

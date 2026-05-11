@@ -1,5 +1,5 @@
 {
   "title": "LaunchBase",
   "root": true,
-  "pages": ["...(introduction)"]
+  "pages": ["...(introduction)", "getting-started", "security", "ai-coding"]
 }

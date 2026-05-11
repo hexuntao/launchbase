@@ -35,13 +35,19 @@ DATABASE_URL="postgresql://postgres:postgres@localhost:5432/launchbase_db"
 UPSTASH_REDIS_REST_URL="http://localhost:8079"
 UPSTASH_REDIS_REST_TOKEN="launchbase"
 BETTER_AUTH_SECRET="replace-with-at-least-32-random-characters"
+```
+
+Optional Google OAuth integration, required only when enabling Google sign-in:
+
+```txt
 GOOGLE_CLIENT_ID=""
 GOOGLE_CLIENT_SECRET=""
 ```
 
-Optional integrations:
+Optional analytics and telemetry integrations:
 
 ```txt
+NEXT_PUBLIC_ASSET_ORIGIN=""
 NEXT_PUBLIC_POSTHOG_KEY=""
 NEXT_PUBLIC_POSTHOG_HOST=""
 NEXT_PUBLIC_SENTRY_DSN=""

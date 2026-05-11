@@ -103,11 +103,16 @@ DATABASE_URL="postgresql://postgres:postgres@localhost:5432/launchbase_db"
 UPSTASH_REDIS_REST_URL="http://localhost:8079"
 UPSTASH_REDIS_REST_TOKEN="launchbase"
 BETTER_AUTH_SECRET="replace-with-at-least-32-random-characters"
+```
+
+Optional Google OAuth integration, required only when enabling Google sign-in:
+
+```env
 GOOGLE_CLIENT_ID=""
 GOOGLE_CLIENT_SECRET=""
 ```
 
-Optional local integrations:
+Optional local analytics and telemetry integrations:
 
 ```env
 NEXT_PUBLIC_ASSET_ORIGIN=""
@@ -128,6 +133,9 @@ Set these in Vercel project environment variables:
 - `UPSTASH_REDIS_REST_URL`
 - `UPSTASH_REDIS_REST_TOKEN`
 - `BETTER_AUTH_SECRET`
+
+Optional Google OAuth variables, required only when enabling Google sign-in:
+
 - `GOOGLE_CLIENT_ID`
 - `GOOGLE_CLIENT_SECRET`
 
