@@ -25,7 +25,7 @@
     "web:e2e": "turbo e2e -F @e2e/web"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.5.3",
+    "@commitlint/cli": "^21.0.0",
     "@commitlint/config-conventional": "^20.5.3",
     "@types/node": "catalog:",
     "fallow": "^2.66.0",
