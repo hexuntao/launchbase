@@ -1,0 +1,92 @@
+---
+title: 项目设置
+description: 了解如何在本地设置 LaunchBase
+icon: Rocket
+---
+
+## 要求
+
+- Node.js 22 或更高版本。
+- pnpm 10。
+- Docker，用于本地 PostgreSQL 和 Redis HTTP bridge。
+
+## 安装
+
+```bash
+pnpm install
+cp .env.example .env
+cp apps/web/.env.example apps/web/.env
+```
+
+生成至少 32 个字符的本地 Better Auth secret：
+
+```bash
+openssl rand -base64 32
+```
+
+将生成值设置为本地环境文件中的 `BETTER_AUTH_SECRET`。不要提交真实 secret。
+
+## 环境变量
+
+本地 web 和 database 流程所需：
+
+```txt
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/launchbase_db"
+UPSTASH_REDIS_REST_URL="http://localhost:8079"
+UPSTASH_REDIS_REST_TOKEN="launchbase"
+BETTER_AUTH_SECRET="replace-with-at-least-32-random-characters"
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+```
+
+可选集成：
+
+```txt
+NEXT_PUBLIC_POSTHOG_KEY=""
+NEXT_PUBLIC_POSTHOG_HOST=""
+NEXT_PUBLIC_SENTRY_DSN=""
+NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT=""
+SENTRY_ORG=""
+SENTRY_PROJECT=""
+SENTRY_AUTH_TOKEN=""
+```
+
+以上所有 key 都来自当前代码读取。代码使用前，不要新增或记录 env keys。
+
+## 本地服务
+
+启动 PostgreSQL、Redis 和 Redis HTTP bridge：
+
+```bash
+pnpm docker:up
+```
+
+结束后停止服务：
+
+```bash
+pnpm docker:down
+```
+
+## 运行应用
+
+```bash
+pnpm web:dev
+pnpm docs:dev
+```
+
+web app 使用 `web.launchbase.localhost`；docs 使用 `docs.launchbase.localhost`。
+
+## 验证
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+Playwright：
+
+```bash
+pnpm --filter @e2e/web exec playwright install chromium
+pnpm web:e2e
+```

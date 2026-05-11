@@ -7,7 +7,13 @@ import { fontsVariable } from "@repo/ui/fonts";
 export const metadata: Metadata = {
   title: "LaunchBase",
   description: "A production-ready monorepo starter for modern TypeScript products",
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    languages: {
+      en: "/",
+      "zh-CN": "/zh",
+    },
+  },
   icons: {
     icon: [{ url: "/icon.svg", href: "/icon.svg" }],
   },

@@ -1,0 +1,53 @@
+---
+title: 技术栈
+description: 了解 LaunchBase 使用的技术栈。
+icon: SquareStack
+---
+
+## 运行时与 workspace
+
+- Node.js 22+
+- pnpm 10 与 workspace catalogs
+- Turborepo 任务编排
+- TypeScript 5
+
+## 应用
+
+- Next.js 16 App Router
+- React 19
+- Tailwind CSS 4
+- Fumadocs 文档站
+
+## UI
+
+共享 UI 位于 `@repo/ui`，包含 Base UI 原语、共享 Tailwind 样式、Geist、Asul 和 Commit Mono 字体导出。
+
+应用应从 `@repo/ui` 导入共享原语，而不是在本地重复实现。
+
+## 后端契约
+
+- Better Auth 认证位于 `@repo/auth`。
+- Drizzle ORM 和 PostgreSQL 访问位于 `@repo/db`。
+- Upstash Redis 与限流位于 `@repo/redis`。
+- oRPC procedures 与 context 位于 `@repo/rpc`。
+
+web app 负责挂载 auth 和 RPC route handlers，但共享运行时行为应保留在 packages 中。
+
+## 可观测性与安全
+
+- `@repo/security` 配置 Nosecone 安全响应头和 CSP。
+- `@repo/analytics` 在 env values 存在时初始化 PostHog 浏览器分析。
+- `@repo/telemetry` 封装 Sentry 和 Evlog 集成。
+
+Sentry 和 PostHog 是可选集成，除非部署明确启用它们。
+
+## 测试与自动化
+
+- `oxlint` 检查 TypeScript 和 JavaScript。
+- `oxfmt` 格式化源文件。
+- Playwright 覆盖 web e2e smoke tests。
+- GitHub Actions 在推送到 `main` 或向 `main` 发起 Pull Request 时运行 install、lint、typecheck 和 build。
+
+## 部署
+
+将 `apps/web` 作为主要 Vercel 应用部署，使用 Node.js 22 和 pnpm。部署所需 env values 与项目设置文档中的必需 key 保持一致。

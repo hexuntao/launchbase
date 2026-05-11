@@ -4,6 +4,7 @@ import { type Metadata, type Viewport } from "next";
 import { domAnimation, LazyMotion } from "motion/react";
 import * as m from "motion/react-m";
 import { fontsVariable } from "@repo/ui/fonts";
+import { i18nUI } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: {
@@ -45,7 +46,7 @@ export default function Layout({ children }: LayoutProps<"/">) {
           transition={{ duration: 1.23 }}
           className="font-geist flex min-h-screen flex-col antialiased"
         >
-          <RootProvider>{children}</RootProvider>
+          <RootProvider i18n={i18nUI.provider("en")}>{children}</RootProvider>
         </m.body>
       </LazyMotion>
     </html>

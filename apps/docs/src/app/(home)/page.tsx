@@ -1,9 +1,12 @@
 import TechStackSet from "@/components/tech-stack-set";
 import { CopyCodeBlock } from "@/components/ui/copy-code-block";
 import { Icons } from "@/components/ui/icons";
+import { getDictionary, getLocalizedPath, type Locale } from "@/lib/i18n";
 import * as motion from "motion/react-client";
 
-export default function HomePage() {
+export default function HomePage({ locale = "en" }: { locale?: Locale }) {
+  const dictionary = getDictionary(locale);
+
   return (
     <>
       <section className="p-12">
@@ -15,7 +18,7 @@ export default function HomePage() {
               transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="text-start text-2xl text-balance"
             >
-              LaunchBase is a production-ready monorepo starter for building modern TypeScript products
+              {dictionary.home.title}
             </motion.h1>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -43,15 +46,33 @@ export default function HomePage() {
                 target="_blank"
                 className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-black px-4 py-3 text-[14px] text-white dark:bg-white dark:text-black"
               >
-                See Demo
+                {dictionary.home.demo}
                 <Icons.LinkSquare />
               </a>
               <a
-                href="/docs"
+                href={getLocalizedPath(locale, "/docs")}
                 className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-neutral-300 px-4 py-3 text-[14px] text-neutral-900 transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-900"
               >
-                Read Docs
+                {dictionary.home.docs}
                 <Icons.LinkSquare />
+              </a>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.24,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className="text-muted-foreground flex items-center gap-2 text-xs"
+            >
+              <a className="hover:text-foreground" href={getLocalizedPath("en", "/")}>
+                English
+              </a>
+              <span>/</span>
+              <a className="hover:text-foreground" href={getLocalizedPath("zh", "/")}>
+                中文
               </a>
             </motion.div>
           </div>
@@ -76,7 +97,7 @@ export default function HomePage() {
             <CirclePattern />
             <div className="space-y-8 pt-15.5">
               <h1 className="text-center text-2xl text-neutral-600 dark:text-neutral-200">
-                Production-ready stack, optimized for scale
+                {dictionary.home.stack}
               </h1>
               <TechStackSet />
             </div>

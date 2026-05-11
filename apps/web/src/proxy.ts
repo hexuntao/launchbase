@@ -30,6 +30,17 @@ const middlewares = {
       return NextResponse.next();
     },
   ],
+  "/zh/admin/:path*": [
+    async (request: NextRequest) => {
+      const sessionCookie = getSessionCookie(request, { cookiePrefix: "launchbase" });
+      if (!sessionCookie) {
+        const callbackUrl = encodeURIComponent(request.nextUrl.pathname);
+        return NextResponse.redirect(new URL(`/zh/auth/login?next=${callbackUrl}`, request.url));
+      }
+
+      return NextResponse.next();
+    },
+  ],
 } satisfies MiddlewareConfig;
 
 export const proxy = createNEMO(middlewares);

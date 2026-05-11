@@ -1,13 +1,16 @@
+import { isLocale } from "@/lib/i18n";
+import { getMDXComponents } from "@/mdx-components";
 import { getPageImage, source } from "@/lib/source";
+import { createRelativeLink } from "fumadocs-ui/mdx";
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/layouts/docs/page";
 import { notFound } from "next/navigation";
-import { getMDXComponents } from "@/mdx-components";
 import type { Metadata } from "next";
-import { createRelativeLink } from "fumadocs-ui/mdx";
 
-export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
+export default async function Page(props: PageProps<"/[lang]/docs/[[...slug]]">) {
   const params = await props.params;
-  const page = source.getPage(params.slug, "en");
+  if (!isLocale(params.lang) || params.lang === "en") notFound();
+
+  const page = source.getPage(params.slug, params.lang);
   if (!page) notFound();
 
   const MDX = page.data.body;
@@ -19,7 +22,6 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
       <DocsBody>
         <MDX
           components={getMDXComponents({
-            // this allows you to link to other pages with relative file paths
             a: createRelativeLink(source, page),
           })}
         />
@@ -28,13 +30,18 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
   );
 }
 
-export async function generateStaticParams() {
-  return source.getPages("en").map((page) => ({ slug: page.slugs }));
+export function generateStaticParams() {
+  return source.getPages("zh").map((page) => ({
+    lang: "zh",
+    slug: page.slugs,
+  }));
 }
 
-export async function generateMetadata(props: PageProps<"/docs/[[...slug]]">): Promise<Metadata> {
+export async function generateMetadata(props: PageProps<"/[lang]/docs/[[...slug]]">): Promise<Metadata> {
   const params = await props.params;
-  const page = source.getPage(params.slug, "en");
+  if (!isLocale(params.lang) || params.lang === "en") notFound();
+
+  const page = source.getPage(params.slug, params.lang);
   if (!page) notFound();
 
   return {
@@ -43,8 +50,8 @@ export async function generateMetadata(props: PageProps<"/docs/[[...slug]]">): P
     alternates: {
       canonical: page.url,
       languages: {
-        en: page.url,
-        "zh-CN": source.getPage(params.slug, "zh")?.url ?? "/zh/docs",
+        en: source.getPage(params.slug, "en")?.url ?? "/docs",
+        "zh-CN": page.url,
       },
     },
     openGraph: {

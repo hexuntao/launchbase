@@ -1,0 +1,43 @@
+---
+title: 概览
+description: LaunchBase 的完整概览
+icon: Box
+---
+
+![LaunchBase header image](/images/home.svg)
+
+LaunchBase 是一个面向现代 TypeScript 全栈产品的生产可用 monorepo 启动模板。它基于上游 [`stack-found/vazen`](https://github.com/stack-found/vazen) 构建，并在保留上游署名的同时，演进为 `hexuntao/launchbase` 的独立启动模板。
+
+## 包含内容
+
+- `apps/web`：主要的 Next.js 产品应用。
+- `apps/docs`：当前 Fumadocs 文档站点。
+- `packages/ui`：共享 UI 原语、全局样式和字体。
+- `packages/auth`：Better Auth 服务端与客户端配置。
+- `packages/db`：Drizzle schema、PostgreSQL 客户端和迁移配置。
+- `packages/redis`：Upstash Redis 客户端、key 前缀和限流工具。
+- `packages/rpc`：oRPC context、procedure 和 router 导出。
+- `packages/security`：共享安全响应头与 CSP 配置。
+- `packages/analytics`：PostHog 浏览器分析。
+- `packages/telemetry`：Sentry 和 Evlog 集成。
+- `packages/email`：React Email 渲染工具和模板。
+
+## 架构规则
+
+应用负责组合共享包。共享包不能从 `apps/*` 导入代码。数据库访问属于 `@repo/db`，认证属于 `@repo/auth`，路由处理器在 `apps/web` 中保持轻量，共享 UI 保持在 `@repo/ui` 中。
+
+## 质量基线
+
+任何代码改动都应保持以下检查通过：
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+在单一区域开发时先运行聚焦检查，合并前再运行完整基线。
+
+## 上游署名
+
+LaunchBase 保留 Vazen 的 MIT 许可义务。不要从 README、NOTICE、许可说明或上游同步流程文档中移除上游引用。

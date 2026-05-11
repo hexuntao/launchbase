@@ -6,7 +6,7 @@
   "scripts": {
     "build": "turbo build",
     "clean": "turbo clean && rimraf .fallow .turbo node_modules",
-    "dev": "turbo dev",
+    "dev": "BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:-local-development-secret-at-least-32-chars} turbo dev",
     "docker:clean": "docker compose down -v",
     "docker:down": "docker compose down",
     "docker:up": "docker compose up -d",

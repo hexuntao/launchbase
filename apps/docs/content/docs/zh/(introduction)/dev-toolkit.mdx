@@ -1,0 +1,55 @@
+---
+title: 开发工具
+description: 了解 LaunchBase 使用的开发工具
+icon: ToolCase
+---
+
+LaunchBase 使用一组小而明确的 workspace 工具，确保 apps 和 packages 的行为保持一致。
+
+## 包管理
+
+使用 `pnpm`，并通过 `pnpm-workspace.yaml` 中的 workspace catalogs 管理共享版本。
+
+```bash
+pnpm install
+```
+
+如果已有 catalog entry，应优先复用。不要在现有 workspace 工具能解决问题时引入新包。
+
+## Turborepo 任务
+
+根脚本委托给 Turborepo：
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+pnpm web:e2e
+```
+
+`pnpm lint` 会运行 package 级别的 `oxlint` 任务。`pnpm typecheck` 会运行已有 package 脚本中的 TypeScript 检查。`pnpm build` 会构建 Next.js apps 及其依赖。
+
+## 格式化与提交
+
+使用 `oxfmt` 格式化，并使用 Conventional Commits 编写提交信息。
+
+```bash
+pnpm fmt
+```
+
+commitlint 校验的类型包括 `feat`、`fix`、`refactor`、`test`、`chore`、`docs`、`ci`、`build`、`perf`、`style`、`revert`。
+
+## E2E 测试
+
+web e2e 套件使用 Playwright。
+
+```bash
+pnpm --filter @e2e/web exec playwright install chromium
+pnpm web:e2e
+```
+
+e2e server 默认会在 `localhost:3000` 启动生产 Next.js build。如果端口已被占用，设置 `PLAYWRIGHT_PORT`。
+
+## 自动化
+
+CI 会运行 install、lint、typecheck 和 build。Renovate 与 Dependabot 监控依赖更新；patch 更新可在配置的冷却期后自动化处理，minor、major、catalog 和安全敏感更新需要人工审查。
