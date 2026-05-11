@@ -10,7 +10,7 @@
     "dev:docs": "next dev",
     "postinstall": "fumadocs-mdx",
     "start": "next start",
-    "typecheck": "fumadocs-mdx && tsc --noEmit"
+    "typecheck": "next typegen && fumadocs-mdx && tsc --noEmit"
   },
   "dependencies": {
     "fumadocs-core": "16.8.7",

@@ -1,9 +1,11 @@
 import { onError } from "@orpc/client";
 import { RPCHandler } from "@orpc/server/fetch";
-import { createContext } from "@repo/rpc/context";
-import { appRouter } from "@repo/rpc/routers/index";
 
 async function handleRequest(request: Request) {
+  const [{ createContext }, { appRouter }] = await Promise.all([
+    import("@repo/rpc/context"),
+    import("@repo/rpc/routers/index"),
+  ]);
   const handler = new RPCHandler(appRouter, {
     interceptors: [
       onError((error) => {

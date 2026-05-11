@@ -10,9 +10,15 @@ import { env } from "#env";
  *
  */
 
-export const initSentry = (): ReturnType<typeof Sentry.init> =>
-  Sentry.init({
-    dsn: env().NEXT_PUBLIC_SENTRY_DSN,
+export const initSentry = (): ReturnType<typeof Sentry.init> => {
+  const sentryDsn = env().NEXT_PUBLIC_SENTRY_DSN;
+
+  if (!sentryDsn) {
+    return undefined;
+  }
+
+  return Sentry.init({
+    dsn: sentryDsn,
     environment: process.env.NODE_ENV,
     enabled: process.env.NODE_ENV === "production",
     tracesSampleRate: 0.1,
@@ -21,3 +27,4 @@ export const initSentry = (): ReturnType<typeof Sentry.init> =>
     replaysSessionSampleRate: 0.1, // 10% of sessions
     replaysOnErrorSampleRate: 1.0, // 100% of sessions with errors
   });
+};

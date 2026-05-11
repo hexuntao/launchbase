@@ -1,22 +1,31 @@
 import { withSentryConfig } from "@sentry/nextjs";
 import { env } from "#env";
 
-export const sentryConfig: Parameters<typeof withSentryConfig>[1] = {
-  org: env().SENTRY_ORG,
-  project: env().SENTRY_PROJECT,
-  telemetry: false,
-  silent: !process.env.CI,
-  widenClientFileUpload: true,
-};
+const sentryEnv = env();
+
+const isSentryUploadEnabled = Boolean(
+  sentryEnv.SENTRY_ORG && sentryEnv.SENTRY_PROJECT && sentryEnv.SENTRY_AUTH_TOKEN
+);
 
 /**
  * wraps the next.js config with sentry configuration.
  */
 export const withSentry = (nextConfig: object): object => {
+  if (!isSentryUploadEnabled) {
+    return nextConfig;
+  }
+
   const config = {
     ...nextConfig,
     transpilePackages: ["@sentry/nextjs"],
   };
 
-  return withSentryConfig(config, sentryConfig);
+  return withSentryConfig(config, {
+    org: sentryEnv.SENTRY_ORG,
+    project: sentryEnv.SENTRY_PROJECT,
+    authToken: sentryEnv.SENTRY_AUTH_TOKEN,
+    telemetry: false,
+    silent: !process.env.CI,
+    widenClientFileUpload: true,
+  });
 };

@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import "@/lib/orpc/server";
 import "@/styles/globals.css";
 import { cn } from "@repo/ui/lib/utils";
 import { Providers } from "@/app/providers";

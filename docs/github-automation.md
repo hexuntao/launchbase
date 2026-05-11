@@ -45,6 +45,8 @@ Dependabot provides a second layer of dependency automation through `.github/dep
 
 The CI workflow runs on pushes to `main` and pull requests targeting `main`. It installs dependencies with pnpm using the lockfile, then runs the scripts that exist in `package.json`: `lint`, `typecheck`, and `build`.
 
+CI does not require Sentry by default. To enable Sentry runtime reporting and source map upload, configure `NEXT_PUBLIC_SENTRY_DSN`, `SENTRY_ORG`, `SENTRY_PROJECT`, and `SENTRY_AUTH_TOKEN` in GitHub Actions and the deployment platform, such as Vercel. `SENTRY_AUTH_TOKEN` is a secret and must not be committed to the repository.
+
 ## Automerge Policy
 
 Only patch updates should be considered for automerge because they are expected to be backward-compatible and low risk when CI passes.

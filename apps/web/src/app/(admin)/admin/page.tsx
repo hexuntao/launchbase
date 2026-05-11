@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import Dashboard from "./dashboard";
 import { headers } from "next/headers";
-import { auth } from "@repo/auth/server";
+import { connection } from "next/server";
 import { Suspense } from "react";
 
 export default async function DashboardPage() {
@@ -15,6 +15,8 @@ export default async function DashboardPage() {
 }
 
 async function DashboardContent() {
+  await connection();
+  const { auth } = await import("@repo/auth/server");
   const session = await auth.api.getSession({
     headers: await headers(),
   });
