@@ -4,8 +4,9 @@ import { z } from "zod";
 export const env = () => {
   return createEnv({
     client: {
-      NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT: z.url(),
+      NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT: z.url().optional(),
     },
+    emptyStringAsUndefined: true,
     runtimeEnv: {
       NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT: process.env.NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT,
     },

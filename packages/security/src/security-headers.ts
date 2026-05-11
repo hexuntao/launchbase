@@ -3,6 +3,7 @@ import type { Options as NoseconeOptions } from "@nosecone/next";
 import { env } from "../env";
 
 const isDev = process.env.NODE_ENV === "development";
+const sentryCspReportEndpoint = env().NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT;
 
 export const securityHeadersOptions: NoseconeOptions = {
   ...defaults,
@@ -31,7 +32,7 @@ export const securityHeadersOptions: NoseconeOptions = {
       mediaSrc: [...defaults.contentSecurityPolicy.directives.mediaSrc, "https://*.posthog.com"],
       frameAncestors: ["'self'", "https://*.posthog.com"],
       upgradeInsecureRequests: !isDev,
-      reportUri: [env().NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT],
+      ...(sentryCspReportEndpoint ? { reportUri: [sentryCspReportEndpoint] } : {}),
     },
   },
   crossOriginEmbedderPolicy: { policy: "credentialless" },

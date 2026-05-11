@@ -2,8 +2,14 @@ import posthog from "posthog-js";
 import { env } from "../env";
 
 export const initializeAnalytics = () => {
-  posthog.init(env().NEXT_PUBLIC_POSTHOG_KEY, {
-    api_host: env().NEXT_PUBLIC_POSTHOG_HOST,
+  const analyticsEnv = env();
+
+  if (!analyticsEnv.NEXT_PUBLIC_POSTHOG_KEY || !analyticsEnv.NEXT_PUBLIC_POSTHOG_HOST) {
+    return;
+  }
+
+  posthog.init(analyticsEnv.NEXT_PUBLIC_POSTHOG_KEY, {
+    api_host: analyticsEnv.NEXT_PUBLIC_POSTHOG_HOST,
     ui_host: "https://us.posthog.com",
     defaults: "2025-05-24",
   });
