@@ -1,4 +1,4 @@
-import { Icons } from "@/components/ui/icons";
+// import { Icons } from "@/components/ui/icons";
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 
 export function baseOptions(): BaseLayoutProps {
@@ -6,7 +6,7 @@ export function baseOptions(): BaseLayoutProps {
     nav: {
       title: (
         <div className="flex items-center gap-2">
-          <Icons.Logo className="size-6" />
+          <img src="/images/icon.svg" alt="LaunchBase" className="h-8 w-auto dark:invert" />
           <span className="font-asul text-2xl">LaunchBase</span>
         </div>
       ),
