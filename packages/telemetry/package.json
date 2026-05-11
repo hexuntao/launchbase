@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@repo/tsconfig": "workspace:*",
+    "next": "catalog:next",
     "typescript": "catalog:"
   }
 }

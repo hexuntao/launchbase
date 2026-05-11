@@ -11,6 +11,8 @@ function isProduction() {
   return process.env.NODE_ENV === "production";
 }
 
+const googleEnabled = Boolean(env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET);
+
 export const auth = betterAuth({
   appName: "LaunchBase",
   secret: env.BETTER_AUTH_SECRET,
@@ -30,11 +32,15 @@ export const auth = betterAuth({
   secondaryStorage: secondaryStorage(),
 
   socialProviders: {
-    google: {
-      prompt: "select_account",
-      clientId: env.GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET,
-    },
+    ...(googleEnabled
+      ? {
+          google: {
+            prompt: "select_account",
+            clientId: env.GOOGLE_CLIENT_ID,
+            clientSecret: env.GOOGLE_CLIENT_SECRET,
+          },
+        }
+      : {}),
   },
 
   session: {

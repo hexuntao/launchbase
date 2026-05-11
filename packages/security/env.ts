@@ -4,10 +4,15 @@ import { z } from "zod";
 export const env = () => {
   return createEnv({
     client: {
+      NEXT_PUBLIC_ASSET_ORIGIN: z
+        .url()
+        .refine((value) => /^https?:\/\//.test(value))
+        .optional(),
       NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT: z.url().optional(),
     },
     emptyStringAsUndefined: true,
     runtimeEnv: {
+      NEXT_PUBLIC_ASSET_ORIGIN: process.env.NEXT_PUBLIC_ASSET_ORIGIN,
       NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT: process.env.NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT,
     },
   });

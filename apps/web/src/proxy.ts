@@ -21,6 +21,8 @@ const middlewares = {
   ],
   "/admin/:path*": [
     async (request: NextRequest) => {
+      // UX redirect only. This cookie check is not an admin permission boundary;
+      // server components, route handlers, and RPC adminProcedure must validate real access.
       const sessionCookie = getSessionCookie(request, { cookiePrefix: "launchbase" });
       if (!sessionCookie) {
         const callbackUrl = encodeURIComponent(request.nextUrl.pathname);
@@ -32,6 +34,8 @@ const middlewares = {
   ],
   "/zh/admin/:path*": [
     async (request: NextRequest) => {
+      // UX redirect only. This cookie check is not an admin permission boundary;
+      // server components, route handlers, and RPC adminProcedure must validate real access.
       const sessionCookie = getSessionCookie(request, { cookiePrefix: "launchbase" });
       if (!sessionCookie) {
         const callbackUrl = encodeURIComponent(request.nextUrl.pathname);

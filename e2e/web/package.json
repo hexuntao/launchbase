@@ -11,11 +11,13 @@
     "e2e:headed": "playwright test --headed",
     "e2e:report": "playwright show-report",
     "e2e:ui": "playwright test --ui",
-    "lint": "pnpm --dir ../../tooling/oxlint exec oxlint --config base.ts \"$PWD\""
+    "lint": "pnpm --dir ../../tooling/oxlint exec oxlint --config base.ts \"$PWD\"",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@playwright/test": "catalog:",
     "@repo/playwright": "workspace:*",
-    "@types/node": "catalog:"
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
   }
 }

@@ -12,7 +12,7 @@ export function Providers(props: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <NuqsAdapter>{props.children}</NuqsAdapter>
-      <ReactQueryDevtools />
+      {process.env.NODE_ENV === "development" ? <ReactQueryDevtools /> : null}
     </QueryClientProvider>
   );
 }

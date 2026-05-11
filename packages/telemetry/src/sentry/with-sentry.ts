@@ -1,4 +1,5 @@
 import { withSentryConfig } from "@sentry/nextjs";
+import type { NextConfig } from "next";
 import { env } from "#env";
 
 const sentryEnv = env();
@@ -10,14 +11,14 @@ const isSentryUploadEnabled = Boolean(
 /**
  * wraps the next.js config with sentry configuration.
  */
-export const withSentry = (nextConfig: object): object => {
+export const withSentry = (nextConfig: NextConfig): NextConfig => {
   if (!isSentryUploadEnabled) {
     return nextConfig;
   }
 
   const config = {
     ...nextConfig,
-    transpilePackages: ["@sentry/nextjs"],
+    transpilePackages: [...new Set([...(nextConfig.transpilePackages ?? []), "@sentry/nextjs"])],
   };
 
   return withSentryConfig(config, {
@@ -27,5 +28,5 @@ export const withSentry = (nextConfig: object): object => {
     telemetry: false,
     silent: !process.env.CI,
     widenClientFileUpload: true,
-  });
+  }) as NextConfig;
 };

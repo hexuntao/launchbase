@@ -1,11 +1,7 @@
 import { AUTH_PREFIX, prefixRedisKey, redis } from "@repo/redis";
 import type { SecondaryStorage } from "better-auth";
 
-export function secondaryStorage(): SecondaryStorage | undefined {
-  if (!redis) {
-    return undefined;
-  }
-
+export function secondaryStorage(): SecondaryStorage {
   return {
     get: async (key) => {
       const storageKey = prefixRedisKey(AUTH_PREFIX, key);

@@ -110,6 +110,7 @@ GOOGLE_CLIENT_SECRET=""
 Optional local integrations:
 
 ```env
+NEXT_PUBLIC_ASSET_ORIGIN=""
 NEXT_PUBLIC_POSTHOG_KEY=""
 NEXT_PUBLIC_POSTHOG_HOST=""
 NEXT_PUBLIC_SENTRY_DSN=""
@@ -132,6 +133,7 @@ Set these in Vercel project environment variables:
 
 Optional Vercel integrations:
 
+- `NEXT_PUBLIC_ASSET_ORIGIN`
 - `NEXT_PUBLIC_POSTHOG_KEY`
 - `NEXT_PUBLIC_POSTHOG_HOST`
 - `NEXT_PUBLIC_SENTRY_DSN`

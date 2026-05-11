@@ -9,7 +9,8 @@
   },
   "scripts": {
     "clean": "rimraf node_modules .turbo",
-    "lint": "pnpm --dir ../../tooling/oxlint exec oxlint --config base.ts \"$PWD\""
+    "lint": "pnpm --dir ../../tooling/oxlint exec oxlint --config base.ts \"$PWD\"",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@better-auth/infra": "catalog:auth",
