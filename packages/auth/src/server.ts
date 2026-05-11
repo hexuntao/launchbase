@@ -1,7 +1,7 @@
 import { dash } from "@better-auth/infra";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { admin, magicLink } from "better-auth/plugins";
+import { admin } from "better-auth/plugins";
 import { db } from "@repo/db";
 import "server-only";
 import { env } from "../env";
@@ -13,6 +13,7 @@ function isProduction() {
 
 export const auth = betterAuth({
   appName: "LaunchBase",
+  secret: env.BETTER_AUTH_SECRET,
   baseURL: {
     allowedHosts: [
       "localhost:3000", // Local Host
@@ -52,20 +53,7 @@ export const auth = betterAuth({
     },
   },
 
-  plugins: [
-    dash(),
-    admin(),
-    magicLink({
-      rateLimit: {
-        window: 900,
-        max: 3,
-      },
-      storeToken: "hashed",
-      sendMagicLink: async () => {
-        //TODO :: Send Email
-      },
-    }),
-  ],
+  plugins: [dash(), admin()],
 
   advanced: {
     cookiePrefix: "launchbase",

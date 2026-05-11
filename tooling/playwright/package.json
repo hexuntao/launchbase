@@ -8,7 +8,8 @@
     ".": "./index.ts"
   },
   "scripts": {
-    "clean": "rimraf node_modules"
+    "clean": "rimraf node_modules",
+    "lint": "pnpm --dir ../oxlint exec oxlint --config base.ts \"$PWD\""
   },
   "dependencies": {
     "@playwright/test": "catalog:"

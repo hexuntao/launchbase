@@ -8,7 +8,8 @@
     "./base": "./base.js"
   },
   "scripts": {
-    "clean": "pnpm rimraf node_modules"
+    "clean": "pnpm rimraf node_modules",
+    "lint": "oxlint --config base.ts \"$PWD\""
   },
   "devDependencies": {
     "oxlint": "^1.63.0",

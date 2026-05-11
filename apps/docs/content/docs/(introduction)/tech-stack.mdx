@@ -3,3 +3,51 @@ title: Tech Stack
 description: Learn about the tech stack used in LaunchBase.
 icon: SquareStack
 ---
+
+## Runtime and workspace
+
+- Node.js 22+
+- pnpm 10 with workspace catalogs
+- Turborepo task orchestration
+- TypeScript 5
+
+## Applications
+
+- Next.js 16 App Router
+- React 19
+- Tailwind CSS 4
+- Fumadocs for documentation
+
+## UI
+
+Shared UI lives in `@repo/ui` and includes Base UI primitives, shared Tailwind styles, Geist, Asul, and Commit Mono font exports.
+
+Apps should import shared primitives from `@repo/ui` instead of duplicating them locally.
+
+## Backend contracts
+
+- Better Auth owns authentication in `@repo/auth`.
+- Drizzle ORM and PostgreSQL access live in `@repo/db`.
+- Upstash Redis and rate limiting live in `@repo/redis`.
+- oRPC procedures and context live in `@repo/rpc`.
+
+The web app mounts auth and RPC route handlers, but shared runtime behavior stays in packages.
+
+## Observability and security
+
+- `@repo/security` configures Nosecone security headers and CSP.
+- `@repo/analytics` initializes PostHog browser analytics when env values are present.
+- `@repo/telemetry` wraps Sentry and Evlog integration.
+
+Sentry and PostHog are optional unless a deployment explicitly enables them.
+
+## Testing and automation
+
+- `oxlint` checks TypeScript and JavaScript.
+- `oxfmt` formats source files.
+- Playwright covers web e2e smoke tests.
+- GitHub Actions runs install, lint, typecheck, and build on `main` pushes and pull requests.
+
+## Deployment
+
+Deploy `apps/web` as the primary Vercel app with Node.js 22 and pnpm. Required deployment env values are the same required keys documented in Project Setup.

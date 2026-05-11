@@ -8,7 +8,8 @@
     "./server": "./src/server.ts"
   },
   "scripts": {
-    "clean": "rimraf node_modules .turbo"
+    "clean": "rimraf node_modules .turbo",
+    "lint": "pnpm --dir ../../tooling/oxlint exec oxlint --config base.ts \"$PWD\""
   },
   "dependencies": {
     "@better-auth/infra": "catalog:auth",

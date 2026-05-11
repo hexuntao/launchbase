@@ -1,10 +1,9 @@
 {
   "extends": "@repo/tsconfig/app/dom",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "collections/*": [".source/*"]
+      "collections/*": ["./.source/*"]
     },
     "plugins": [
       {

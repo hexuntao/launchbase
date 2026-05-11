@@ -8,6 +8,7 @@
     "clean": "rimraf .next .turbo node_modules next-env.d.ts",
     "dev": "portless",
     "dev:app": "next dev",
+    "lint": "pnpm --dir ../../tooling/oxlint exec oxlint --config base.ts \"$PWD\"",
     "start": "next start",
     "typecheck": "tsc --noEmit"
   },

@@ -14,6 +14,7 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "dev": "drizzle-kit studio",
+    "lint": "pnpm --dir ../../tooling/oxlint exec oxlint --config base.ts \"$PWD\"",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

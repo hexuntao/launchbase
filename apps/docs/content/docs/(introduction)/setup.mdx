@@ -3,3 +3,90 @@ title: Project Setup
 description: Learn how to set up LaunchBase locally
 icon: Rocket
 ---
+
+## Requirements
+
+- Node.js 22 or newer.
+- pnpm 10.
+- Docker for local PostgreSQL and Redis HTTP bridge.
+
+## Install
+
+```bash
+pnpm install
+cp .env.example .env
+cp apps/web/.env.example apps/web/.env
+```
+
+Generate a local Better Auth secret with at least 32 characters:
+
+```bash
+openssl rand -base64 32
+```
+
+Set the generated value as `BETTER_AUTH_SECRET` in local environment files. Do not commit real secrets.
+
+## Environment variables
+
+Required for local web and database flows:
+
+```txt
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/launchbase_db"
+UPSTASH_REDIS_REST_URL="http://localhost:8079"
+UPSTASH_REDIS_REST_TOKEN="launchbase"
+BETTER_AUTH_SECRET="replace-with-at-least-32-random-characters"
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+```
+
+Optional integrations:
+
+```txt
+NEXT_PUBLIC_POSTHOG_KEY=""
+NEXT_PUBLIC_POSTHOG_HOST=""
+NEXT_PUBLIC_SENTRY_DSN=""
+NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT=""
+SENTRY_ORG=""
+SENTRY_PROJECT=""
+SENTRY_AUTH_TOKEN=""
+```
+
+All keys above are read by current code. Do not document or add env keys before code uses them.
+
+## Local services
+
+Start PostgreSQL, Redis, and the Redis HTTP bridge:
+
+```bash
+pnpm docker:up
+```
+
+Stop them when finished:
+
+```bash
+pnpm docker:down
+```
+
+## Run apps
+
+```bash
+pnpm web:dev
+pnpm docs:dev
+```
+
+The web app uses `web.launchbase.localhost`; docs use `docs.launchbase.localhost`.
+
+## Validate
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+For Playwright:
+
+```bash
+pnpm --filter @e2e/web exec playwright install chromium
+pnpm web:e2e
+```

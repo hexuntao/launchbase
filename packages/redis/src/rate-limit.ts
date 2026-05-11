@@ -10,4 +10,4 @@ export const createRateLimiter = (props: Omit<RatelimitConfig, "redis">) =>
     prefix: props.prefix ?? RATE_LIMIT_PREFIX,
   });
 
-export const { slidingWindow } = Ratelimit;
+export const slidingWindow = Ratelimit.slidingWindow.bind(Ratelimit);

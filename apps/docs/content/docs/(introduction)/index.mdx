@@ -5,3 +5,39 @@ icon: Box
 ---
 
 ![LaunchBase header image](/images/home.svg)
+
+LaunchBase is a production-ready monorepo starter for modern TypeScript full-stack products. It is built from upstream [`stack-found/vazen`](https://github.com/stack-found/vazen) and keeps that attribution visible while evolving the project into an independent starter for `hexuntao/launchbase`.
+
+## What is included
+
+- `apps/web`: the primary Next.js product app.
+- `apps/docs`: this Fumadocs documentation site.
+- `packages/ui`: shared UI primitives, global styles, and fonts.
+- `packages/auth`: Better Auth server and client configuration.
+- `packages/db`: Drizzle schema, PostgreSQL client, and migration config.
+- `packages/redis`: Upstash Redis client, key prefixes, and rate limiting.
+- `packages/rpc`: oRPC context, procedures, and router exports.
+- `packages/security`: shared security headers and CSP configuration.
+- `packages/analytics`: PostHog browser analytics.
+- `packages/telemetry`: Sentry and Evlog integration.
+- `packages/email`: React Email rendering utilities and templates.
+
+## Architecture rules
+
+Apps compose shared packages. Shared packages do not import from `apps/*`. Database access belongs in `@repo/db`, authentication belongs in `@repo/auth`, route handlers stay thin in `apps/web`, and shared UI remains presentation-focused in `@repo/ui`.
+
+## Quality baseline
+
+Every code change should keep these checks passing:
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+Run focused checks when working in one area, then run the full baseline before merging.
+
+## Upstream attribution
+
+LaunchBase preserves the MIT license obligations from Vazen. Do not remove the upstream reference from README, NOTICE, license notes, or upstream sync workflow documentation.

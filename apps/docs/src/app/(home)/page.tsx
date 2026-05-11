@@ -20,21 +20,40 @@ export default function HomePage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={{
+                duration: 0.6,
+                delay: 0.08,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
             >
               <CopyCodeBlock value="npx degit hexuntao/launchbase <Your-Project>" />
             </motion.div>
-            <motion.a
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.16, ease: [0.25, 0.46, 0.45, 0.94] }}
-              href="https://web.launchbase.dev"
-              target="_blank"
-              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-black px-4 py-3 text-[14px] text-white dark:bg-white dark:text-black"
+              transition={{
+                duration: 0.6,
+                delay: 0.16,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className="flex flex-wrap items-center gap-3"
             >
-              See Demo
-              <Icons.LinkSquare />
-            </motion.a>
+              <a
+                href="https://launchbase-web.vercel.app"
+                target="_blank"
+                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-black px-4 py-3 text-[14px] text-white dark:bg-white dark:text-black"
+              >
+                See Demo
+                <Icons.LinkSquare />
+              </a>
+              <a
+                href="/docs"
+                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-neutral-300 px-4 py-3 text-[14px] text-neutral-900 transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-900"
+              >
+                Read Docs
+                <Icons.LinkSquare />
+              </a>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -43,7 +62,11 @@ export default function HomePage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.123, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{
+              duration: 1,
+              delay: 0.123,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
             className="relative w-full border border-[#AAAAAA] bg-[#F0F0F0] p-5 dark:border-neutral-500 dark:bg-neutral-900"
           >
             <span className="absolute top-0 left-0 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-black dark:bg-white" />

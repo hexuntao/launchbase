@@ -8,6 +8,8 @@ LaunchBase is a production-ready monorepo starter built from Vazen and evolved f
 
 中文说明：LaunchBase 保留 Vazen 的上游来源与 MIT 许可义务，并在此基础上强化产品化文档、CI、依赖更新、AI 编码规范和部署准备。
 
+Full usage docs live in `apps/docs/content/docs`.
+
 ## Why LaunchBase
 
 Modern product teams need more than a blank Next.js app. LaunchBase provides a small but production-oriented base that keeps the boring parts explicit: package boundaries, environment validation, CI checks, dependency review, Vercel readiness, security headers, auth, database access, and AI-friendly coding rules.
@@ -66,6 +68,7 @@ e2e/          Playwright end-to-end tests
 pnpm install
 cp .env.example .env
 cp apps/web/.env.example apps/web/.env
+openssl rand -base64 32 # use this value for BETTER_AUTH_SECRET
 pnpm docker:up
 pnpm web:dev
 ```
@@ -82,6 +85,7 @@ pnpm lint         # run lint tasks
 pnpm typecheck    # run TypeScript checks
 pnpm build        # build all apps
 pnpm web:e2e      # run web Playwright tests
+pnpm --filter @e2e/web exec playwright install chromium # install the browser for e2e
 pnpm docker:up    # start local Postgres and Redis HTTP bridge
 pnpm docker:down  # stop local services
 ```
@@ -98,6 +102,7 @@ Required for the web app and database packages:
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/launchbase_db"
 UPSTASH_REDIS_REST_URL="http://localhost:8079"
 UPSTASH_REDIS_REST_TOKEN="launchbase"
+BETTER_AUTH_SECRET="replace-with-at-least-32-random-characters"
 GOOGLE_CLIENT_ID=""
 GOOGLE_CLIENT_SECRET=""
 ```
@@ -121,6 +126,7 @@ Set these in Vercel project environment variables:
 - `DATABASE_URL`
 - `UPSTASH_REDIS_REST_URL`
 - `UPSTASH_REDIS_REST_TOKEN`
+- `BETTER_AUTH_SECRET`
 - `GOOGLE_CLIENT_ID`
 - `GOOGLE_CLIENT_SECRET`
 

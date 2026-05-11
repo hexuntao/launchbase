@@ -8,6 +8,7 @@
     "clean": "rimraf .next .source .turbo node_modules",
     "dev": "portless",
     "dev:docs": "next dev",
+    "lint": "pnpm --dir ../../tooling/oxlint exec oxlint --config base.ts \"$PWD\"",
     "postinstall": "fumadocs-mdx",
     "start": "next start",
     "typecheck": "next typegen && fumadocs-mdx && tsc --noEmit"

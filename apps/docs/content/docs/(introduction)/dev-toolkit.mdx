@@ -3,3 +3,53 @@ title: Dev Toolkit
 description: Learn about the development tools used in LaunchBase
 icon: ToolCase
 ---
+
+LaunchBase uses a small set of workspace tools that should stay predictable across apps and packages.
+
+## Package management
+
+Use `pnpm` with the workspace catalogs in `pnpm-workspace.yaml`.
+
+```bash
+pnpm install
+```
+
+Dependencies shared across apps should use catalog entries where one already exists. Do not add a new package when an existing workspace utility solves the same problem.
+
+## Turborepo tasks
+
+Root scripts delegate to Turborepo:
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+pnpm web:e2e
+```
+
+`pnpm lint` runs package-level `oxlint` tasks. `pnpm typecheck` runs TypeScript checks where package scripts exist. `pnpm build` builds the Next.js apps and their dependencies.
+
+## Formatting and commits
+
+Use `oxfmt` for formatting and Conventional Commits for commit messages.
+
+```bash
+pnpm fmt
+```
+
+Commit types are validated by commitlint and include `feat`, `fix`, `refactor`, `test`, `chore`, `docs`, `ci`, `build`, `perf`, `style`, `revert`.
+
+## E2E testing
+
+The web e2e suite uses Playwright.
+
+```bash
+pnpm --filter @e2e/web exec playwright install chromium
+pnpm web:e2e
+```
+
+The e2e server starts the production Next.js build on `localhost:3000` by default. Set `PLAYWRIGHT_PORT` when that port is already in use.
+
+## Automation
+
+CI runs install, lint, typecheck, and build. Renovate and Dependabot monitor dependency updates; patch updates may be automated after the configured cooldown, while minor, major, catalog, and security-sensitive updates require review.
