@@ -1,5 +1,9 @@
 # LaunchBase
 
+[![LaunchBase](./github.svg)](https://github.com/hexuntao/launchbase)
+
+> - Demo site :: [launchbase-web.vercel.app](https://launchbase-web.vercel.app)
+
 LaunchBase 是一个生产可用的 monorepo 启动模板，基于 Vazen 构建，并针对真实产品开发进行了演进。它包含 CI、依赖自动化、AI 编码规范、Vercel 部署准备，以及为现代 TypeScript 全栈应用打造的整洁基础。
 
 LaunchBase 保留了 Vazen 的上游来源与 MIT 许可义务，并在此基础上强化了产品化文档、CI、依赖更新、AI 编码规范和部署准备。
