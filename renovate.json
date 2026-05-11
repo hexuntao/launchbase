@@ -5,7 +5,7 @@
   "prConcurrentLimit": 10,
   "prHourlyLimit": 5,
   "rangeStrategy": "bump",
-  "baseBranchPatterns": ["dev"],
+  "baseBranchPatterns": ["main"],
   "postUpdateOptions": ["pnpmDedupe"],
   "schedule": ["after 9am every weekday", "before 5am every weekday"],
   "labels": ["dependencies"],
@@ -30,14 +30,14 @@
       "labels": ["dependencies", "patch", "automerge"]
     },
     {
-      "description": "dev minor :: automerge but not via platform :: allows sanity check on e.g. new lint rules",
+      "description": "dev minor :: manual review required :: allows sanity check on e.g. new lint rules",
       "groupName": "Dev dependency minor updates",
       "matchDepTypes": ["devDependencies"],
       "matchUpdateTypes": ["minor"],
       "minimumReleaseAge": "3 days",
-      "automerge": true,
+      "automerge": false,
       "platformAutomerge": false,
-      "labels": ["dependencies", "dev", "automerge"]
+      "labels": ["dependencies", "dev", "minor"]
     },
     {
       "description": "prod minor :: PR only, 5-day cooldown :: behavioral changes may affect users",
