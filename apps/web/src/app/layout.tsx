@@ -9,18 +9,7 @@ export const metadata: Metadata = {
   description: "A production-ready monorepo starter for modern TypeScript products",
   alternates: { canonical: "/" },
   icons: {
-    icon: [
-      {
-        media: "(prefers-color-scheme: light)",
-        url: "/images/favicon-dark.png",
-        href: "/images/favicon-dark.png",
-      },
-      {
-        media: "(prefers-color-scheme: dark)",
-        url: "/images/favicon-light.png",
-        href: "/images/favicon-light.png",
-      },
-    ],
+    icon: [{ url: "/icon.svg", href: "/icon.svg" }],
   },
 };
 
