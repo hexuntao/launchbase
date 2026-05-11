@@ -57,24 +57,6 @@ export default function HomePage({ locale = "en" }: { locale?: Locale }) {
                 <Icons.LinkSquare />
               </a>
             </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.6,
-                delay: 0.24,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-              className="text-muted-foreground flex items-center gap-2 text-xs"
-            >
-              <a className="hover:text-foreground" href={getLocalizedPath("en", "/")}>
-                English
-              </a>
-              <span>/</span>
-              <a className="hover:text-foreground" href={getLocalizedPath("zh", "/")}>
-                中文
-              </a>
-            </motion.div>
           </div>
         </div>
       </section>

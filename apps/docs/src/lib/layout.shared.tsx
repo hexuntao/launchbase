@@ -1,21 +1,25 @@
+import { LanguageSelect, LanguageSelectText } from "@/components/language-select";
 import { getLocalizedPath, i18n, type Locale } from "@/lib/i18n";
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 
-export function baseOptions(locale: Locale = "en"): BaseLayoutProps {
+type BaseOptions = {
+  docsSidebarToolbar?: boolean;
+};
+
+export function baseOptions(locale: Locale = "en", options: BaseOptions = {}): BaseLayoutProps {
+  const useDocsSidebarToolbar = options.docsSidebarToolbar === true;
+
   return {
-    i18n,
-    links: [
-      {
-        text: "English",
-        url: getLocalizedPath("en", "/docs"),
-        active: locale === "en" ? "url" : "none",
-      },
-      {
-        text: "中文",
-        url: getLocalizedPath("zh", "/docs"),
-        active: locale === "zh" ? "url" : "none",
-      },
-    ],
+    i18n: useDocsSidebarToolbar ? false : i18n,
+    slots: useDocsSidebarToolbar
+      ? undefined
+      : {
+          languageSelect: {
+            root: LanguageSelect,
+            text: LanguageSelectText,
+          },
+        },
+    themeSwitch: useDocsSidebarToolbar ? { enabled: false } : undefined,
     nav: {
       url: getLocalizedPath(locale, "/"),
       title: (
@@ -25,6 +29,6 @@ export function baseOptions(locale: Locale = "en"): BaseLayoutProps {
         </div>
       ),
     },
-    githubUrl: "https://github.com/hexuntao/launchbase",
+    githubUrl: useDocsSidebarToolbar ? undefined : "https://github.com/hexuntao/launchbase",
   };
 }

@@ -1,3 +1,4 @@
+import { DocsSidebarToolbar } from "@/components/docs-sidebar-toolbar";
 import { isLocale } from "@/lib/i18n";
 import { baseOptions } from "@/lib/layout.shared";
 import { source } from "@/lib/source";
@@ -12,7 +13,11 @@ export default async function Layout({ children, params }: LayoutProps<"/[lang]/
   }
 
   return (
-    <DocsLayout tree={source.getPageTree(lang)} {...baseOptions(lang)}>
+    <DocsLayout
+      tree={source.getPageTree(lang)}
+      sidebar={{ footer: <DocsSidebarToolbar /> }}
+      {...baseOptions(lang, { docsSidebarToolbar: true })}
+    >
       {children}
     </DocsLayout>
   );
