@@ -25,6 +25,13 @@ export function HomePage({ locale }: { locale: Locale }) {
               中文
             </a>
           </div>
+          <a
+            href="https://launchbase-docs.vercel.app"
+            target="_blank"
+            className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-black px-4 py-3 text-[14px] text-white dark:bg-white dark:text-black"
+          >
+            {dictionary.home.docs}
+          </a>
         </div>
       </div>
     </div>

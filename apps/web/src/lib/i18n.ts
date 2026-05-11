@@ -23,6 +23,7 @@ export const dictionaries = {
     home: {
       description: "A production-ready monorepo starter for shipping modern TypeScript products.",
       button: "Button",
+      docs: "Read Docs",
       apiHealthLabel: "API Health :",
       apiHealthError: "[API] Failed to fetch API Health!",
     },
@@ -45,6 +46,7 @@ export const dictionaries = {
     home: {
       description: "面向现代 TypeScript 产品交付的生产可用 monorepo 启动模板。",
       button: "按钮",
+      docs: "查看文档文档",
       apiHealthLabel: "API 状态：",
       apiHealthError: "[API] 获取 API 状态失败！",
     },
