@@ -2,28 +2,23 @@
 
 [![LaunchBase](./github.svg)](https://github.com/hexuntao/launchbase)
 
-> - Demo site :: [launchbase-web.vercel.app](https://launchbase-web.vercel.app)
+LaunchBase 是一个生产级 TypeScript monorepo 启动模板，用于构建现代全栈产品。它提供清晰的包边界、类型安全 API、数据库基础、部署准备和 AI 编码规则。
 
-LaunchBase 是一个生产可用的 monorepo 启动模板，基于 Vazen 构建，并针对真实产品开发进行了演进。它包含 CI、依赖自动化、AI 编码规范、Vercel 部署准备，以及为现代 TypeScript 全栈应用打造的整洁基础。
-
-LaunchBase 保留了 Vazen 的上游来源与 MIT 许可义务，并在此基础上强化了产品化文档、CI、依赖更新、AI 编码规范和部署准备。
-
-完整使用文档位于 `apps/docs/content/docs`。
-
-## Why LaunchBase
-
-现代产品团队需要的不仅仅是一个空白的 Next.js 应用。LaunchBase 提供了一个小而精且面向生产的基础，让那些枯燥的部分变得明确：包边界、环境校验、CI 检查、依赖审查、Vercel 部署准备、安全响应头、auth、数据库访问以及对 AI 友好的编码规则。
+- Demo: [launchbase-web.vercel.app](https://launchbase-web.vercel.app)
+- 文档：`apps/docs/content/docs`
+- 英文 README：[README.md](./README.md)
 
 ## Features
 
-- 生产可用的 TypeScript monorepo 结构。
-- 用于产品 UI 和文档的 Next.js 应用。
-- 共享的 UI、auth、database、Redis、RPC、analytics、telemetry、security 和 email 包。
-- 用于 install、lint、typecheck 和 build 的 CI。
-- 用于依赖自动化的 Renovate 和 Dependabot 配置。
-- Vercel 就绪的应用结构和环境变量文档。
-- 根目录和包级别的 `AGENTS.md` 文件，用于 AI 编码工作流。
-- 用于追踪 `stack-found/vazen` 的上游同步指南。
+- 基于 pnpm workspace 和 Turborepo 的生产可用 monorepo。
+- Next.js 产品应用和 Fumadocs 文档应用。
+- 用于 UI、auth、database、Redis、RPC、analytics、telemetry、security 和 email 的共享包。
+- 基于 oRPC 和 TanStack Query 的类型安全 API 流程。
+- PostgreSQL、Drizzle ORM、Better Auth 和 Upstash Redis 集成点。
+- 覆盖 install、lint、typecheck 和 build 的 CI。
+- 用于依赖审查的 Renovate 和 Dependabot 配置。
+- 根目录与包级 `AGENTS.md`，用于 AI 辅助编码。
+- `DESIGN.md` 指导产品界面保持一致的视觉风格。
 
 ## Tech Stack
 
@@ -39,14 +34,14 @@ LaunchBase 保留了 Vazen 的上游来源与 MIT 许可义务，并在此基础
 - **Email:** React Email
 - **Analytics:** PostHog
 - **Telemetry:** Sentry, Evlog
-- **Testing:** Playwright for e2e
+- **Testing:** Playwright
 - **Tooling:** oxlint, oxfmt, commitlint, lefthook
 
-## Monorepo Structure
+## Project Structure
 
 ```txt
 apps/
-  web/      LaunchBase 主产品应用
+  web/      主产品应用
   docs/     文档站点
 packages/
   analytics/  PostHog 集成
@@ -57,12 +52,12 @@ packages/
   rpc/        oRPC 上下文和路由导出
   security/   安全响应头和 CSP
   telemetry/  Sentry 和 Evlog 集成
-  ui/         共享的 UI 原语、样式和字体
-tooling/      共享的工作区工具
+  ui/         共享 UI 原语、样式和字体
+tooling/      共享工作区工具
 e2e/          Playwright 端到端测试
 ```
 
-## Getting Started
+## Quick Start
 
 ```bash
 pnpm install
@@ -85,110 +80,29 @@ pnpm lint         # 运行 lint 任务
 pnpm typecheck    # 运行 TypeScript 检查
 pnpm build        # 构建所有应用
 pnpm web:e2e      # 运行 web Playwright 测试
-pnpm --filter @e2e/web exec playwright install chromium # 安装 e2e 浏览器
 pnpm docker:up    # 启动本地 Postgres 和 Redis HTTP 桥接
 pnpm docker:down  # 停止本地服务
 ```
 
-## Environment Variables
-
-以下所有环境变量均来自当前代码库。除非代码读取，否则不要添加未记录的键。
-
-### Local Development
-
-Web 应用和数据库包所需：
-
-```env
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/launchbase_db"
-UPSTASH_REDIS_REST_URL="http://localhost:8079"
-UPSTASH_REDIS_REST_TOKEN="launchbase"
-BETTER_AUTH_SECRET="replace-with-at-least-32-random-characters"
-```
-
-可选的 Google OAuth 集成，仅在启用 Google 登录时需要：
-
-```env
-GOOGLE_CLIENT_ID=""
-GOOGLE_CLIENT_SECRET=""
-```
-
-可选的资源 / CSP 源：
-
-```env
-NEXT_PUBLIC_ASSET_ORIGIN=""
-```
-
-可选的 analytics：
-
-```env
-NEXT_PUBLIC_POSTHOG_KEY=""
-NEXT_PUBLIC_POSTHOG_HOST=""
-```
-
-可选的 telemetry：
-
-```env
-NEXT_PUBLIC_SENTRY_DSN=""
-NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT=""
-SENTRY_ORG=""
-SENTRY_PROJECT=""
-SENTRY_AUTH_TOKEN=""
-```
-
-### Vercel Deployment
-
-在 Vercel 项目环境变量中设置：
-
-- `DATABASE_URL`
-- `UPSTASH_REDIS_REST_URL`
-- `UPSTASH_REDIS_REST_TOKEN`
-- `BETTER_AUTH_SECRET`
-
-可选的 Google OAuth 变量，仅在启用 Google 登录时需要：
-
-- `GOOGLE_CLIENT_ID`
-- `GOOGLE_CLIENT_SECRET`
-
-可选的资源 / CSP 源：
-
-- `NEXT_PUBLIC_ASSET_ORIGIN`
-
-可选的 PostHog analytics：
-
-- `NEXT_PUBLIC_POSTHOG_KEY`
-- `NEXT_PUBLIC_POSTHOG_HOST`
-
-可选的 Sentry telemetry：
-
-- `NEXT_PUBLIC_SENTRY_DSN`
-- `NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT`
-- `SENTRY_ORG`
-- `SENTRY_PROJECT`
-- `SENTRY_AUTH_TOKEN`
-
-Sentry 是可选的。如果未配置 Sentry，请将其值留空，不要设置真实的 auth token。
-
-## GitHub Automation
-
-CI 在向 `main` 分支的推送和 Pull Request 上运行：
+按需安装 e2e 浏览器：
 
 ```bash
-pnpm install --frozen-lockfile
-pnpm lint
-pnpm typecheck
-pnpm build
+pnpm --filter @e2e/web exec playwright install chromium
 ```
 
-依赖自动化通过 Renovate 和 Dependabot 配置：
+## AI Coding Workflow
 
-- Renovate: `renovate.json`
-- Dependabot: `.github/dependabot.yml`
+LaunchBase 面向 Codex、Claude Code 和其他需要在编辑前读取明确项目规则的 coding agent。
 
-补丁更新可在冷却期后自动执行。次要版本、主要版本、目录和安全敏感更新根据仓库自动化配置需要人工审查。
+- 修改共享行为前先读根目录 `AGENTS.md`。
+- 编辑某个 app 或 package 前先读对应目录下的 `AGENTS.md`。
+- 保持包所有权边界；apps 可以消费 `@repo/*`，shared packages 不允许从 apps 导入。
+- 首页和产品界面视觉决策遵循 `apps/web/DESIGN.md`。
+- 使用与 CI 一致的检查验证改动：lint、typecheck、build。
 
-## Vercel Deployment
+## Deployment
 
-将 `apps/web` 作为主应用部署。使用 Node.js 22 和 pnpm。应用需要上述列出的环境变量，并在构建时使用 `@repo/*` 工作区包。
+将 `apps/web` 作为主应用部署。使用 Node.js 22 和 pnpm。应用需要下方环境变量，并在构建时使用 `@repo/*` workspace 包。
 
 部署前建议检查：
 
@@ -199,11 +113,74 @@ pnpm typecheck
 pnpm build
 ```
 
-## Upstream Sync with Vazen
+## Environment Variables
 
-LaunchBase 派生自 [`stack-found/vazen`](https://github.com/stack-found/vazen)。上游来源必须保持可见，不得在文档、许可说明或同步工作流中隐藏。
+以下 env key 均来自当前代码用法。除非代码读取，否则不要添加未记录的键。
 
-使用专用的 `upstream-sync` 分支进行上游更新：
+本地 web 和 database 开发所需：
+
+```env
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/launchbase_db"
+UPSTASH_REDIS_REST_URL="http://localhost:8079"
+UPSTASH_REDIS_REST_TOKEN="launchbase"
+BETTER_AUTH_SECRET="replace-with-at-least-32-random-characters"
+```
+
+可选 Google OAuth 集成：
+
+```env
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+```
+
+可选资源和 CSP origin：
+
+```env
+NEXT_PUBLIC_ASSET_ORIGIN=""
+```
+
+可选 analytics：
+
+```env
+NEXT_PUBLIC_POSTHOG_KEY=""
+NEXT_PUBLIC_POSTHOG_HOST=""
+```
+
+可选 telemetry：
+
+```env
+NEXT_PUBLIC_SENTRY_DSN=""
+NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT=""
+SENTRY_ORG=""
+SENTRY_PROJECT=""
+SENTRY_AUTH_TOKEN=""
+```
+
+Sentry 是可选项。未配置 Sentry 时保持空值，不要设置真实 auth token。
+
+## GitHub Automation
+
+CI 在推送到 `main` 和创建 Pull Request 时运行：
+
+```bash
+pnpm install --frozen-lockfile
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+依赖自动化配置：
+
+- Renovate: `renovate.json`
+- Dependabot: `.github/dependabot.yml`
+
+补丁更新可在冷却期后自动执行。次要版本、主要版本、catalog 和安全敏感更新需要根据仓库自动化配置进行人工审查。
+
+## Upstream Sync
+
+LaunchBase 派生自 [`stack-found/vazen`](https://github.com/stack-found/vazen)。请在文档、许可说明和上游同步流程中保留该署名。
+
+使用专用 `upstream-sync` 分支进行上游更新：
 
 ```bash
 git checkout -b upstream-sync
@@ -215,24 +192,13 @@ pnpm typecheck
 pnpm build
 ```
 
-解决冲突时，保留 LaunchBase 的产品化工作，同时明确审查上游 Vazen 的变更。
-
-## AI Coding with AGENTS.md
-
-本仓库在根目录和每个 app/package 内部均包含 AI 编码说明：
-
-- `AGENTS.md`
-- `apps/web/AGENTS.md`
-- `apps/docs/AGENTS.md`
-- `packages/*/AGENTS.md`
-
-AI agent 在编辑代码前必须阅读相关的本地文件，保留包边界，避免泄露 secrets，保留上游署名，并通过 lint、typecheck 和 build 验证更改。
+解决冲突时，保留 LaunchBase 的产品化工作，并明确审查上游 Vazen 变更。
 
 ## License
 
-LaunchBase 采用 MIT License 授权。详见 [LICENSE](LICENSE)。
+LaunchBase 采用 MIT License。详见 [LICENSE](LICENSE)。
 
-本仓库保留了来自 Vazen 的上游 MIT 许可义务。署名详情见 [NOTICE.md](NOTICE.md)。
+本仓库保留来自 Vazen 的上游 MIT 许可义务。署名详情见 [NOTICE.md](NOTICE.md)。
 
 ## Credits
 

@@ -1,49 +1,57 @@
-<svg width="1660" height="457" viewBox="0 0 1660 457" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="launchbase-github-title launchbase-github-desc">
-  <title id="launchbase-github-title">LaunchBase</title>
-  <desc id="launchbase-github-desc">LaunchBase production-ready monorepo starter banner</desc>
-  <rect width="1660" height="457" fill="#F7F8FA"/>
-  <rect x="1" y="1" width="1658" height="455" rx="28" stroke="#0A0A0B" stroke-opacity="0.08" stroke-width="2"/>
-  <path d="M0 320H1660" stroke="#0A0A0B" stroke-opacity="0.06"/>
-  <path d="M0 136H1660" stroke="#0A0A0B" stroke-opacity="0.04"/>
-  <path d="M180 0V457" stroke="#0A0A0B" stroke-opacity="0.04"/>
-  <path d="M1480 0V457" stroke="#0A0A0B" stroke-opacity="0.04"/>
-
-  <g transform="translate(184 92)">
-    <rect width="272" height="272" rx="58" fill="#09090B"/>
-    <rect x="2.5" y="2.5" width="267" height="267" rx="55.5" stroke="white" stroke-opacity="0.16" stroke-width="5"/>
-    <path d="M74 184H198" stroke="white" stroke-width="16" stroke-linecap="round"/>
-    <path d="M92 151H180" stroke="white" stroke-opacity="0.65" stroke-width="16" stroke-linecap="round"/>
-    <path d="M112 118H160" stroke="white" stroke-opacity="0.38" stroke-width="16" stroke-linecap="round"/>
-    <path d="M136 38L188 116H84L136 38Z" fill="white"/>
-    <path d="M136 38L164 116H84L136 38Z" fill="#5EEAD4"/>
-    <path d="M136 116V196" stroke="white" stroke-width="16" stroke-linecap="round"/>
-    <path d="M136 202L108 234H164L136 202Z" fill="#60A5FA"/>
+<svg width="1660" height="520" viewBox="0 0 1660 520" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="launchbase-docs-home-title launchbase-docs-home-desc">
+  <title id="launchbase-docs-home-title">LaunchBase</title>
+  <desc id="launchbase-docs-home-desc">LaunchBase documentation banner with monorepo, terminal, and deploy panels</desc>
+  <rect width="1660" height="520" rx="30" fill="#FFFFFF"/>
+  <rect x="1" y="1" width="1658" height="518" rx="29" stroke="#0D0D0D" stroke-opacity="0.08" stroke-width="2"/>
+  <path d="M0 104H1660M0 416H1660" stroke="#0D0D0D" stroke-opacity="0.05"/>
+  <path d="M104 0V520M1556 0V520" stroke="#0D0D0D" stroke-opacity="0.05"/>
+  <g opacity="0.5">
+    <path d="M240 0V520M448 0V520M656 0V520M864 0V520M1072 0V520M1280 0V520" stroke="#0D0D0D" stroke-opacity="0.035"/>
+    <path d="M0 208H1660M0 312H1660" stroke="#0D0D0D" stroke-opacity="0.035"/>
   </g>
-
-  <g transform="translate(536 117)">
-    <text x="0" y="92" fill="#09090B" font-family="Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="96" font-weight="720" letter-spacing="0">LaunchBase</text>
-    <text x="4" y="149" fill="#3F3F46" font-family="Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="34" font-weight="450" letter-spacing="0">Production-ready monorepo starter for modern TypeScript products</text>
-    <g transform="translate(4 194)">
-      <rect width="148" height="44" rx="10" fill="#09090B"/>
-      <text x="24" y="29" fill="white" font-family="Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="620" letter-spacing="0">Next.js 16</text>
-      <rect x="164" width="128" height="44" rx="10" fill="#FFFFFF" stroke="#D4D4D8"/>
-      <text x="188" y="29" fill="#18181B" font-family="Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="620" letter-spacing="0">React 19</text>
-      <rect x="308" width="122" height="44" rx="10" fill="#FFFFFF" stroke="#D4D4D8"/>
-      <text x="332" y="29" fill="#18181B" font-family="Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="620" letter-spacing="0">pnpm</text>
-      <rect x="446" width="132" height="44" rx="10" fill="#FFFFFF" stroke="#D4D4D8"/>
-      <text x="470" y="29" fill="#18181B" font-family="Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="620" letter-spacing="0">Turborepo</text>
-      <rect x="594" width="112" height="44" rx="10" fill="#FFFFFF" stroke="#D4D4D8"/>
-      <text x="618" y="29" fill="#18181B" font-family="Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="620" letter-spacing="0">Vercel</text>
+  <g transform="translate(140 120)">
+    <rect width="72" height="72" rx="18" fill="#0D0D0D"/>
+    <rect x="1" y="1" width="70" height="70" rx="17" stroke="white" stroke-opacity="0.16" stroke-width="2"/>
+    <path d="M22 50H50" stroke="white" stroke-width="4" stroke-linecap="round"/>
+    <path d="M22 36H50" stroke="white" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/>
+    <path d="M36 22V50" stroke="white" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/>
+    <rect x="23" y="23" width="11" height="11" rx="3" fill="white"/>
+    <rect x="38" y="23" width="11" height="11" rx="3" fill="white" fill-opacity="0.38"/>
+    <rect x="23" y="38" width="11" height="11" rx="3" fill="white" fill-opacity="0.38"/>
+    <rect x="38" y="38" width="11" height="11" rx="3" fill="white"/>
+    <text x="0" y="142" fill="#0D0D0D" font-family="Geist, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="78" font-weight="660" letter-spacing="0">LaunchBase</text>
+    <text x="2" y="196" fill="#666666" font-family="Geist, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="30" font-weight="430" letter-spacing="0">Developer docs for a production-grade starter</text>
+  </g>
+  <g transform="translate(710 92)">
+    <rect width="360" height="336" rx="18" fill="#F9F9F9" stroke="#E5E5E5"/>
+    <text x="28" y="48" fill="#0D0D0D" font-family="Geist Mono, ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17" font-weight="600">docs index</text>
+    <path d="M28 72H332" stroke="#E5E5E5"/>
+    <g font-family="Geist Mono, ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" letter-spacing="0">
+      <text x="28" y="116" fill="#0D0D0D">getting-started</text>
+      <text x="28" y="156" fill="#0D0D0D">tech-stack</text>
+      <text x="28" y="196" fill="#0D0D0D">deployment</text>
+      <text x="28" y="236" fill="#0D0D0D">ai-coding</text>
+      <text x="28" y="276" fill="#0D0D0D">security</text>
     </g>
   </g>
-
-  <g transform="translate(1268 120)">
-    <rect width="210" height="218" rx="22" fill="#FFFFFF" fill-opacity="0.78" stroke="#D4D4D8"/>
-    <path d="M38 58H172" stroke="#09090B" stroke-opacity="0.82" stroke-width="10" stroke-linecap="round"/>
-    <path d="M38 96H132" stroke="#09090B" stroke-opacity="0.3" stroke-width="10" stroke-linecap="round"/>
-    <path d="M38 134H156" stroke="#09090B" stroke-opacity="0.3" stroke-width="10" stroke-linecap="round"/>
-    <path d="M38 172H116" stroke="#09090B" stroke-opacity="0.3" stroke-width="10" stroke-linecap="round"/>
-    <circle cx="164" cy="166" r="18" fill="#5EEAD4"/>
-    <path d="M157 166L162 171L172 159" stroke="#09090B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(1100 92)">
+    <rect width="420" height="150" rx="18" fill="#0D0D0D"/>
+    <g transform="translate(24 28)" font-family="Geist Mono, ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" letter-spacing="0">
+      <text x="0" y="18" fill="white" fill-opacity="0.42">$</text>
+      <text x="20" y="18" fill="white">pnpm docs:dev</text>
+      <text x="0" y="58" fill="white" fill-opacity="0.78">docs.launchbase.localhost</text>
+      <text x="0" y="96" fill="white" fill-opacity="0.78">localized English and Chinese</text>
+    </g>
+  </g>
+  <g transform="translate(1100 274)">
+    <rect width="420" height="154" rx="18" fill="#FFFFFF" stroke="#E5E5E5"/>
+    <text x="24" y="44" fill="#0D0D0D" font-family="Geist, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="620">engineering workflow</text>
+    <text x="24" y="82" fill="#666666" font-family="Geist, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15">Read rules. Keep boundaries. Validate changes.</text>
+    <rect x="24" y="106" width="94" height="30" rx="15" fill="#F6F6F6" stroke="#E5E5E5"/>
+    <rect x="130" y="106" width="94" height="30" rx="15" fill="#F6F6F6" stroke="#E5E5E5"/>
+    <rect x="236" y="106" width="94" height="30" rx="15" fill="#0D0D0D"/>
+    <text x="46" y="126" fill="#0D0D0D" font-family="Geist Mono, ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">lint</text>
+    <text x="148" y="126" fill="#0D0D0D" font-family="Geist Mono, ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">types</text>
+    <text x="258" y="126" fill="white" font-family="Geist Mono, ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">build</text>
   </g>
 </svg>
