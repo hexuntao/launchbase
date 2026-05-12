@@ -112,12 +112,22 @@ GOOGLE_CLIENT_ID=""
 GOOGLE_CLIENT_SECRET=""
 ```
 
-可选的本地 analytics 和 telemetry 集成：
+可选的资源 / CSP 源：
 
 ```env
 NEXT_PUBLIC_ASSET_ORIGIN=""
+```
+
+可选的 analytics：
+
+```env
 NEXT_PUBLIC_POSTHOG_KEY=""
 NEXT_PUBLIC_POSTHOG_HOST=""
+```
+
+可选的 telemetry：
+
+```env
 NEXT_PUBLIC_SENTRY_DSN=""
 NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT=""
 SENTRY_ORG=""
@@ -139,11 +149,17 @@ SENTRY_AUTH_TOKEN=""
 - `GOOGLE_CLIENT_ID`
 - `GOOGLE_CLIENT_SECRET`
 
-可选的 Vercel 集成：
+可选的资源 / CSP 源：
 
 - `NEXT_PUBLIC_ASSET_ORIGIN`
+
+可选的 PostHog analytics：
+
 - `NEXT_PUBLIC_POSTHOG_KEY`
 - `NEXT_PUBLIC_POSTHOG_HOST`
+
+可选的 Sentry telemetry：
+
 - `NEXT_PUBLIC_SENTRY_DSN`
 - `NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT`
 - `SENTRY_ORG`
