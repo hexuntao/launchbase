@@ -1,0 +1,45 @@
+---
+title: 项目结构
+description: 当前 LaunchBase 的 app、package、tooling 和文档布局。
+icon: FolderTree
+---
+
+LaunchBase 是一个由 Turborepo 编排的 pnpm workspace。Apps 拥有可部署界面，packages 拥有可复用的运行时、UI、数据和工具契约。
+
+## Apps
+
+- `apps/web`：主要 Next.js 产品应用，包含 auth routes、RPC route handlers、admin pages、analytics、telemetry 和 LaunchBase 官网首页。
+- `apps/docs`：Fumadocs 文档站，英文与简体中文内容位于 `content/docs`。
+
+当前仓库没有 `apps/api` 目录。API 行为通过 `apps/web` route handlers 和共享 `@repo/rpc` package contracts 暴露。
+
+## Packages
+
+- `packages/ui`：共享 UI 原语、全局样式、hooks、工具函数和字体导出。
+- `packages/auth`：Better Auth 服务端和客户端配置、provider 配置、sessions 与 auth storage 集成。
+- `packages/db`：Drizzle schema、PostgreSQL 客户端、migration config 和 schema 文档。
+- `packages/redis`：Upstash Redis 客户端、key prefix 和 rate limiting helpers。
+- `packages/rpc`：oRPC context、procedures 和 router 导出。
+- `packages/security`：共享安全响应头与 Content Security Policy 配置。
+- `packages/analytics`：PostHog 浏览器分析集成。
+- `packages/telemetry`：Sentry 和 Evlog instrumentation 导出。
+- `packages/email`：React Email templates 和渲染工具。
+
+当前仓库没有 `packages/config` 或 `packages/types` 目录。共享 TypeScript 配置位于 `tooling/tsconfig`。
+
+## Tooling 和测试
+
+- `tooling/oxlint`：共享 oxlint 配置和执行封装。
+- `tooling/playwright`：共享 Playwright 配置。
+- `tooling/tsconfig`：app 和 library TypeScript 基础配置。
+- `e2e/web`：web app 的 Playwright 端到端 smoke tests。
+- `docker-compose.yml`：本地 PostgreSQL、Redis 和 Redis HTTP bridge。
+
+## 根目录契约
+
+- `AGENTS.md`：面向人和 AI coding agent 的仓库级编码、包边界、安全、CI 和署名规则。
+- `apps/web/DESIGN.md`：产品视觉系统和 UI 实现规则。
+- `.env.example`：根目录 env 示例，与当前必填和可选运行时 keys 对齐。
+- `README.md`：GitHub 和开源传播的英文入口。
+- `README.zh-CN.md`：README 的简体中文镜像。
+- `NOTICE.md`：上游署名和许可说明。

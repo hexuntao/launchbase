@@ -8,10 +8,11 @@ import { i18nUI } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s :: LaunchBase",
-    default: "LaunchBase",
+    template: "%s | LaunchBase Docs",
+    default: "LaunchBase Docs",
   },
-  description: "A production-ready monorepo starter for modern TypeScript products",
+  description:
+    "Developer documentation for LaunchBase, a production-grade TypeScript monorepo starter for modern full-stack products.",
   icons: {
     icon: [
       {
@@ -31,8 +32,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#000" },
-    { media: "(prefers-color-scheme: light)", color: "#fff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d0d0d" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
   ],
 };
 
@@ -44,7 +45,7 @@ export default function Layout({ children }: LayoutProps<"/">) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.23 }}
-          className="font-geist flex min-h-screen flex-col antialiased"
+          className="bg-background text-foreground font-geist flex min-h-screen flex-col antialiased"
         >
           <RootProvider i18n={i18nUI.provider("en")}>{children}</RootProvider>
         </m.body>

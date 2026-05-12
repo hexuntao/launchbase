@@ -1,0 +1,86 @@
+---
+title: 设计系统
+description: 视觉方向、tokens、布局规则和文档一致性要求。
+icon: Palette
+---
+
+LaunchBase 采用 OpenAI Developers 式的工程极简风格，并结合 Vercel 的开发者产品清晰感与 Linear 的精致工作流细节。
+
+设计系统应呈现精确、冷静、技术化、生产可用、极简但不空洞、开发者优先的气质。
+
+## 方向
+
+- 白色与近白背景。
+- 近黑前景文字。
+- 中性灰 surfaces 和清晰边框。
+- 柔和卡片与克制圆角。
+- 只有层级需要时才使用轻微阴影。
+- Terminal、file tree、deploy 和 workflow surfaces 使用 code-native previews。
+
+## Tokens
+
+```css
+--background: #ffffff;
+--foreground: #0d0d0d;
+--muted: #f6f6f6;
+--muted-foreground: #666666;
+--card: #ffffff;
+--card-subtle: #f9f9f9;
+--border: #e5e5e5;
+--border-subtle: #eeeeee;
+--primary: #0d0d0d;
+--primary-foreground: #ffffff;
+--secondary: #f3f3f3;
+--secondary-foreground: #171717;
+--accent: #ededed;
+--accent-foreground: #111111;
+--code-bg: #0d0d0d;
+--code-fg: #f5f5f5;
+--radius-sm: 8px;
+--radius-md: 10px;
+--radius-lg: 16px;
+--radius-pill: 9999px;
+--shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.06);
+--shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.04);
+```
+
+## Typography
+
+- UI 和 prose：Geist Sans、Inter、system-ui。
+- Code：Geist Mono、Commit Mono、JetBrains Mono、ui-monospace。
+- 层级要紧凑清晰。文档内容中避免 marketing 式超大标题。
+
+## Spacing 和 radius
+
+- 文档密度要紧凑，但保留阅读空间。
+- 小控件使用 8px，中等 surface 使用 10px，大面板使用 16px，pill 使用 full radius。
+- 避免 card 套 card。
+
+## Components
+
+- Buttons 应直接、高对比、目的明确。
+- Cards 使用 1px border，只使用轻微 shadow。
+- Code blocks 应像工具，不像装饰。
+- Callouts 保持冷静中性；warning 才使用更强对比。
+- Tables 优先可扫描性，不做装饰。
+
+## 一致性要求
+
+- README、`github.svg`、docs 和 web 应共享同一套中性工程语言。
+- 不复制 OpenAI、Vercel 或 Linear 的资产、logo、原文案或专有视觉标记。
+- GitHub 和 README surfaces 中的 SVG 文本以英文为主。
+- 中文文档应是完整镜像，除 code、paths、package names 和 commands 外，不要中英文混排。
+
+## Do
+
+- 使用精确的技术文案。
+- 以黑、白、中性灰作为主色。
+- 使用 border、hairline 和 code preview 这类有意义的细节。
+- 保持适合开发者阅读配置和架构的界面密度。
+
+## Don't
+
+- 不使用高饱和颜色、蓝紫 SaaS 渐变、卡通插图或厚重阴影。
+- 不在 docs 中制作大面积装饰性 hero。
+- 不在结构文档中编造不存在的架构目录。
+- 不让生成资产出现 `LaunchBase` 拼写错误。

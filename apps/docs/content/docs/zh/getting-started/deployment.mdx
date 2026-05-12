@@ -1,12 +1,12 @@
 ---
 title: 部署流程
-description: Fork、配置、运行、验证并部署 LaunchBase。
+description: 从 monorepo 将 LaunchBase web app 部署到 Vercel。
 icon: Rocket
 ---
 
-## Fork 和 clone
+LaunchBase 的主要产品界面从 `apps/web` 部署。docs app 可以按需作为独立 Vercel 项目部署，但当前验证过的生产路径是 web app。
 
-先 fork `hexuntao/launchbase`，再 clone 你的 fork：
+## 准备仓库
 
 ```bash
 git clone https://github.com/<your-org>/<your-repo>.git
@@ -14,55 +14,21 @@ cd <your-repo>
 pnpm install
 ```
 
-## 配置 env
-
-复制示例文件：
+本地验证时复制 env 示例并启动服务：
 
 ```bash
 cp .env.example .env
 cp apps/web/.env.example apps/web/.env
+pnpm docker:up
 ```
 
-生成 Better Auth secret，并写入本地 env 文件：
+生成 Better Auth secret：
 
 ```bash
 openssl rand -base64 32
 ```
 
-本地必填值：
-
-```txt
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/launchbase_db"
-UPSTASH_REDIS_REST_URL="http://localhost:8079"
-UPSTASH_REDIS_REST_TOKEN="launchbase"
-BETTER_AUTH_SECRET="replace-with-at-least-32-random-characters"
-```
-
-## 本地运行
-
-启动 PostgreSQL、Redis 和 Redis HTTP bridge：
-
-```bash
-pnpm docker:up
-```
-
-运行 web app：
-
-```bash
-pnpm web:dev
-```
-
-运行 docs app：
-
-```bash
-pnpm docs:dev
-```
-
-web app 使用 `web.launchbase.localhost`；docs 使用 `docs.launchbase.localhost`。
-
-## 验证
-
-运行与 CI 相同的检查：
+## 部署前验证
 
 ```bash
 pnpm lint
@@ -70,27 +36,59 @@ pnpm typecheck
 pnpm build
 ```
 
-仅修改 docs 时，也运行：
+web-only 部署检查：
 
 ```bash
-pnpm docs:build
+pnpm --filter web typecheck
+pnpm web:build
 ```
 
-## 部署到 Vercel
+## Vercel 项目设置
 
-为 `apps/web` 创建 Vercel 项目。使用 Node.js 22 和 pnpm。monorepo 构建通过 pnpm 和 Turborepo 使用 workspace packages。
+连接仓库并为 web app 创建 Vercel project：
 
-设置以下 Vercel 必填环境变量：
+```txt
+Framework Preset: Next.js
+Root Directory: apps/web
+Install Command: pnpm install --frozen-lockfile
+Build Command: pnpm web:build
+Output Directory: .next
+Node.js Version: 22.x
+```
+
+构建命令需要通过 Turborepo 使用 workspace packages。如果你的 Vercel 设置会从 `apps/web` 内部运行命令，请把 Root Directory 调回仓库根目录，并保留 `pnpm web:build`。
+
+## 必填环境变量
+
+在 Vercel 的 production 和 preview environments 中设置：
 
 - `DATABASE_URL`
 - `UPSTASH_REDIS_REST_URL`
 - `UPSTASH_REDIS_REST_TOKEN`
 - `BETTER_AUTH_SECRET`
 
-可选集成：
+生产 `DATABASE_URL` 应指向托管 PostgreSQL。生产 Redis 值应指向 Upstash Redis 或兼容的 Redis REST endpoint。
 
-- Google 登录：设置 `GOOGLE_CLIENT_ID` 和 `GOOGLE_CLIENT_SECRET`。
-- Sentry：设置 `NEXT_PUBLIC_SENTRY_DSN`、`NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT`、`SENTRY_ORG`、`SENTRY_PROJECT` 和 `SENTRY_AUTH_TOKEN`。
-- PostHog：设置 `NEXT_PUBLIC_POSTHOG_KEY` 和 `NEXT_PUBLIC_POSTHOG_HOST`。
+## 可选集成
+
+- Google OAuth：`GOOGLE_CLIENT_ID`、`GOOGLE_CLIENT_SECRET`。
+- Asset / CSP origin：`NEXT_PUBLIC_ASSET_ORIGIN`。
+- PostHog：`NEXT_PUBLIC_POSTHOG_KEY`、`NEXT_PUBLIC_POSTHOG_HOST`。
+- Sentry：`NEXT_PUBLIC_SENTRY_DSN`、`NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT`、`SENTRY_ORG`、`SENTRY_PROJECT`、`SENTRY_AUTH_TOKEN`。
 
 未启用集成时保持可选值为空。不要提交真实 token 或 DSN。
+
+## Monorepo 注意事项
+
+- 保持 `pnpm-lock.yaml`、`pnpm-workspace.yaml` 和 `turbo.json` 位于仓库根目录。
+- 不要把共享 packages 复制进 `apps/web`；workspace dependency graph 就是契约。
+- 不要提交生成的 `.next` 输出。
+- 如果单独部署 docs，为 `apps/docs` 创建第二个 Vercel project，并使用 `pnpm docs:build`。
+
+## 常见错误
+
+- `BETTER_AUTH_SECRET` 太短：生成至少 32 个字符的值。
+- 数据库连接失败：确认 `DATABASE_URL` 可从 Vercel 访问，并符合数据库提供商的 SSL 要求。
+- Redis env validation 失败：同时设置 `UPSTASH_REDIS_REST_URL` 和 `UPSTASH_REDIS_REST_TOKEN`。
+- OAuth callback 不匹配：启用 Google 登录前，把部署域名加入 Google OAuth redirect URIs。
+- 构建无法解析 workspace packages：确认 install 从 monorepo 根目录运行，并使用 pnpm。

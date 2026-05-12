@@ -1,5 +1,16 @@
 {
   "title": "LaunchBase",
   "root": true,
-  "pages": ["...(introduction)", "getting-started", "security", "ai-coding"]
+  "pages": [
+    "---介绍---",
+    "...(introduction)",
+    "---指南---",
+    "getting-started",
+    "ai-coding",
+    "---架构---",
+    "architecture",
+    "---参考---",
+    "reference",
+    "security"
+  ]
 }

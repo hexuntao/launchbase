@@ -1,0 +1,46 @@
+---
+title: Monorepo 架构
+description: LaunchBase 如何划分 apps、共享 packages、tooling、docs 和验证流程。
+icon: Boxes
+---
+
+LaunchBase 让可部署应用保持轻量，并把可复用行为放入 package-owned contracts。这样产品代码可以演进，而不会把 monorepo 变成共享全局命名空间。
+
+## App 层
+
+- `apps/web` 拥有用户可见的产品应用、route handlers、admin pages、web metadata 和产品组合。
+- `apps/docs` 拥有 Fumadocs 配置、MDX 内容、docs metadata、导航、搜索和文档专属 UI。
+
+Apps 可以依赖 `@repo/*` packages。Packages 不能从 `apps/*` 导入。
+
+## Runtime packages
+
+- `@repo/auth`：Better Auth server/client setup 和 provider 配置。
+- `@repo/db`：Drizzle schema、PostgreSQL client 和 migration 配置。
+- `@repo/redis`：Upstash Redis client 和 rate limiting helpers。
+- `@repo/rpc`：oRPC context、procedures 和 router 导出。
+- `@repo/security`：security headers 和 Content Security Policy 配置。
+- `@repo/analytics`：浏览器 analytics。
+- `@repo/telemetry`：Sentry 和 Evlog instrumentation。
+- `@repo/email`：React Email templates 和渲染工具。
+
+## UI package
+
+`@repo/ui` 拥有共享 primitives、Tailwind globals、hooks、utilities 和字体导出。产品特定页面组合保留在 apps 中。
+
+## Tooling
+
+- `turbo.json` 定义 build、dev、lint、typecheck、e2e 和 clean 任务关系。
+- `pnpm-workspace.yaml` 定义 workspace packages 和 catalog versions。
+- `tooling/oxlint`、`tooling/playwright` 和 `tooling/tsconfig` 集中管理共享工具配置。
+
+## 文档契约
+
+- `AGENTS.md` 文件说明人和 AI coding agent 的范围与约束。
+- `apps/web/DESIGN.md` 定义当前视觉系统。
+- Package READMEs 总结每个 package 的用途、exports、边界和验证命令。
+- Docs 页面提供这些契约的可导航双语镜像。
+
+## 修改规则
+
+当改动跨越 app/package 边界时，同时更新代码契约和文档契约。共享行为变化不应只存在于 app code 或只存在于 prose。

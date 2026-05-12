@@ -1,0 +1,57 @@
+---
+title: Environment Variables
+description: Required and optional env keys grouped by the packages that read them.
+icon: KeyRound
+---
+
+LaunchBase documents only environment variables that are present in `.env.example` and current `env.ts` files. Keep real values in local or deployment environments. Never commit `.env` files, tokens, DSNs, or production URLs.
+
+## Root and web app
+
+Root `.env.example` and `apps/web/.env.example` currently mirror the same runtime surface for local development and web deployment.
+
+| Variable | Status | Read by | Notes |
+| --- | --- | --- | --- |
+| `DATABASE_URL` | Required | `@repo/db` | PostgreSQL connection string. Local default points to Docker PostgreSQL. |
+| `UPSTASH_REDIS_REST_URL` | Required | `@repo/redis`, `@repo/db`, `@repo/auth` | Local default points to the Redis HTTP bridge. |
+| `UPSTASH_REDIS_REST_TOKEN` | Required | `@repo/redis`, `@repo/db`, `@repo/auth` | Local default is `launchbase`. Use a real Upstash token in production. |
+| `BETTER_AUTH_SECRET` | Required | `@repo/auth` | Minimum 32 characters. Generate a unique value per environment. |
+| `GOOGLE_CLIENT_ID` | Optional | `@repo/auth` | Enables Google OAuth only when paired with `GOOGLE_CLIENT_SECRET`. |
+| `GOOGLE_CLIENT_SECRET` | Optional | `@repo/auth` | Keep empty when Google sign-in is disabled. |
+| `NEXT_PUBLIC_ASSET_ORIGIN` | Optional | `@repo/security` | Adds a specific asset origin to CSP. Must be an HTTP(S) URL. |
+| `NEXT_PUBLIC_POSTHOG_KEY` | Optional | `@repo/analytics` | Must start with `phc_` when set. |
+| `NEXT_PUBLIC_POSTHOG_HOST` | Optional | `@repo/analytics` | PostHog API host. Required only when PostHog is enabled. |
+| `NEXT_PUBLIC_SENTRY_DSN` | Optional | `@repo/telemetry` | Enables Sentry client, server, and edge instrumentation in production. |
+| `NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT` | Optional | `@repo/security` | Optional CSP reporting endpoint. |
+| `SENTRY_ORG` | Optional | `@repo/telemetry` | Used by the Next.js Sentry wrapper for release/source map integration. |
+| `SENTRY_PROJECT` | Optional | `@repo/telemetry` | Used with `SENTRY_ORG` and `SENTRY_AUTH_TOKEN`. |
+| `SENTRY_AUTH_TOKEN` | Optional | `@repo/telemetry` | Required only for Sentry upload integration. |
+
+## Package examples
+
+Package-level `.env.example` files document each package's local responsibility:
+
+- `packages/auth/.env.example`: `BETTER_AUTH_SECRET`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`.
+- `packages/db/.env.example`: `DATABASE_URL`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`.
+- `packages/redis/.env.example`: `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`.
+- `packages/analytics/.env.example`: `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_POSTHOG_HOST`.
+- `packages/security/.env.example`: `NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT`.
+- `packages/telemetry/.env.example`: `NEXT_PUBLIC_SENTRY_DSN`, `SENTRY_ORG`, `SENTRY_PROJECT`, `SENTRY_AUTH_TOKEN`.
+
+`packages/email/env.ts` currently defines no provider variables. Do not add email provider env keys until provider code exists.
+
+## Local defaults
+
+```txt
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/launchbase_db"
+UPSTASH_REDIS_REST_URL="http://localhost:8079"
+UPSTASH_REDIS_REST_TOKEN="launchbase"
+BETTER_AUTH_SECRET="replace-with-at-least-32-random-characters"
+```
+
+## Validation notes
+
+- Empty optional strings are treated as undefined where the package env schema enables it.
+- `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` default to empty strings and enable Google sign-in only when both are present.
+- Sentry build upload is enabled only when `SENTRY_ORG`, `SENTRY_PROJECT`, and `SENTRY_AUTH_TOKEN` are all present.
+- Public variables still need care. Do not put secrets in `NEXT_PUBLIC_*` keys.

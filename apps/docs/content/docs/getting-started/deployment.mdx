@@ -1,12 +1,12 @@
 ---
 title: Deployment
-description: Fork, configure, run, validate, and deploy LaunchBase.
+description: Deploy the LaunchBase web app to Vercel from the monorepo.
 icon: Rocket
 ---
 
-## Fork and clone
+LaunchBase deploys the primary product surface from `apps/web`. The docs app can be deployed as a separate Vercel project if needed, but the verified production path is the web app.
 
-Fork `hexuntao/launchbase`, then clone your fork:
+## Prepare the repository
 
 ```bash
 git clone https://github.com/<your-org>/<your-repo>.git
@@ -14,55 +14,21 @@ cd <your-repo>
 pnpm install
 ```
 
-## Configure env
-
-Copy the example files:
+For local validation, copy env examples and start local services:
 
 ```bash
 cp .env.example .env
 cp apps/web/.env.example apps/web/.env
+pnpm docker:up
 ```
 
-Generate a Better Auth secret and set it in your local env files:
+Generate a Better Auth secret:
 
 ```bash
 openssl rand -base64 32
 ```
 
-Required local values:
-
-```txt
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/launchbase_db"
-UPSTASH_REDIS_REST_URL="http://localhost:8079"
-UPSTASH_REDIS_REST_TOKEN="launchbase"
-BETTER_AUTH_SECRET="replace-with-at-least-32-random-characters"
-```
-
-## Run locally
-
-Start PostgreSQL, Redis, and the Redis HTTP bridge:
-
-```bash
-pnpm docker:up
-```
-
-Run the web app:
-
-```bash
-pnpm web:dev
-```
-
-Run the docs app:
-
-```bash
-pnpm docs:dev
-```
-
-The web app uses `web.launchbase.localhost`; docs use `docs.launchbase.localhost`.
-
-## Validate
-
-Run the same checks used by CI:
+## Validate before deployment
 
 ```bash
 pnpm lint
@@ -70,37 +36,59 @@ pnpm typecheck
 pnpm build
 ```
 
-For docs-only changes, also run:
+For a web-only deployment check:
 
 ```bash
-pnpm docs:build
+pnpm --filter web typecheck
+pnpm web:build
 ```
 
-## Deploy to Vercel
+## Vercel project setup
 
-Create a Vercel project for `apps/web`. Use these project settings:
+Create a Vercel project connected to the repository and configure it for the web app:
 
 ```txt
+Framework Preset: Next.js
 Root Directory: apps/web
 Install Command: pnpm install --frozen-lockfile
 Build Command: pnpm web:build
-Node.js: 22
+Output Directory: .next
+Node.js Version: 22.x
 ```
 
-The monorepo build uses workspace packages through pnpm and Turborepo.
+The build command runs from the repository root context through Turborepo so workspace packages remain available. If your Vercel setup runs commands from `apps/web`, switch the Root Directory back to repository root and keep `pnpm web:build`.
 
-Set these required Vercel environment variables:
+## Required environment variables
+
+Set these values in Vercel for production and preview environments:
 
 - `DATABASE_URL`
 - `UPSTASH_REDIS_REST_URL`
 - `UPSTASH_REDIS_REST_TOKEN`
 - `BETTER_AUTH_SECRET`
 
-Optional integrations:
+Production `DATABASE_URL` must point to a managed PostgreSQL database. Production Redis values should point to Upstash Redis or another compatible Redis REST endpoint.
 
-- Google OAuth: set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`.
-- Asset / CSP origin: set `NEXT_PUBLIC_ASSET_ORIGIN`.
-- PostHog: set `NEXT_PUBLIC_POSTHOG_KEY` and `NEXT_PUBLIC_POSTHOG_HOST`.
-- Sentry: set `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT`, `SENTRY_ORG`, `SENTRY_PROJECT`, and `SENTRY_AUTH_TOKEN`.
+## Optional integrations
 
-Keep optional values empty when the integration is not enabled. Never commit real tokens or DSNs.
+- Google OAuth: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`.
+- Asset / CSP origin: `NEXT_PUBLIC_ASSET_ORIGIN`.
+- PostHog: `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_POSTHOG_HOST`.
+- Sentry: `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT`, `SENTRY_ORG`, `SENTRY_PROJECT`, `SENTRY_AUTH_TOKEN`.
+
+Leave optional values empty unless the integration is enabled. Never commit real tokens or DSNs.
+
+## Monorepo notes
+
+- Keep `pnpm-lock.yaml`, `pnpm-workspace.yaml`, and `turbo.json` at the repository root.
+- Do not copy shared packages into `apps/web`; the workspace dependency graph is the contract.
+- Keep generated `.next` output uncommitted.
+- If deploying docs separately, create a second Vercel project for `apps/docs` with `pnpm docs:build`.
+
+## Common errors
+
+- `BETTER_AUTH_SECRET` too short: generate a value with at least 32 characters.
+- Database connection fails: confirm `DATABASE_URL` is reachable from Vercel and uses the correct SSL requirements for your provider.
+- Redis env validation fails: set both `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`.
+- OAuth callback mismatch: add the deployed domain to your Google OAuth redirect URIs before enabling Google sign-in.
+- Build cannot resolve workspace packages: verify install runs from the monorepo root and uses pnpm.

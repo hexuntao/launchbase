@@ -1,0 +1,85 @@
+---
+title: 开发工作流
+description: 本地开发、聚焦验证、提交和文档更新流程。
+icon: GitBranch
+---
+
+## 小步修改
+
+1. 修改 app 或 package 前先阅读相关 `AGENTS.md`。
+2. 阅读计划修改的文件，以及相邻测试或文档。
+3. 只做能解决任务的最小改动。
+4. 先运行聚焦检查，交付前运行根目录基线检查。
+
+## 常用命令
+
+```bash
+pnpm install
+pnpm docker:up
+pnpm web:dev
+pnpm docs:dev
+pnpm fmt
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+docs 改动使用聚焦检查：
+
+```bash
+pnpm --filter docs typecheck
+pnpm docs:build
+```
+
+web 改动使用聚焦检查：
+
+```bash
+pnpm --filter web typecheck
+pnpm web:build
+```
+
+## 格式化和提交
+
+LaunchBase 使用 `oxfmt` 和 `oxlint`。Lefthook 会在提交时运行格式化、lint 和提交信息检查。
+
+提交信息使用 Conventional Commits：
+
+```txt
+docs(docs): expand deployment guide
+feat(web): add typed admin workflow
+fix(auth): handle missing session
+```
+
+每次提交只包含一个逻辑改动。
+
+## 数据库工作
+
+数据库 schema 和 migration 命令位于 `@repo/db`：
+
+```bash
+pnpm --filter @repo/db db:generate
+pnpm --filter @repo/db db:migrate
+pnpm --filter @repo/db db:studio
+```
+
+Migration 命令会改变数据库状态，需要明确人工确认。
+
+## E2E 检查
+
+web e2e 套件使用 Playwright：
+
+```bash
+pnpm --filter @e2e/web exec playwright install chromium
+pnpm web:e2e
+```
+
+e2e server 默认会在 `localhost:3000` 启动生产 web build。端口已被占用时设置 `PLAYWRIGHT_PORT`。
+
+## 文档更新
+
+修改行为时，更新最近的文档入口：
+
+- App 行为：app README、docs guide 或 route-specific docs。
+- Package 边界：package README 和 `apps/docs/content/docs/architecture/package-boundaries.mdx`。
+- Env 变化：`.env.example`、package `.env.example` 和 Environment Variables 页面。
+- UI 系统变化：`apps/web/DESIGN.md` 和 Design System 页面。

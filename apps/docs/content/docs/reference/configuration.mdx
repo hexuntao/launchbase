@@ -1,0 +1,41 @@
+---
+title: Configuration
+description: The main configuration files that define workspace, docs, tooling, and deployment behavior.
+icon: Settings
+---
+
+## Workspace
+
+- `pnpm-workspace.yaml`: workspace package globs and catalog versions.
+- `turbo.json`: task graph for build, dev, lint, typecheck, e2e, and clean.
+- `package.json`: root scripts and package manager version.
+- `docker-compose.yml`: local PostgreSQL, Redis, and Redis HTTP bridge.
+
+## Applications
+
+- `apps/web/next.config.ts`: web app Next.js configuration and Sentry wrapper.
+- `apps/docs/next.config.ts`: docs app Next.js configuration.
+- `apps/docs/source.config.ts`: Fumadocs MDX collection configuration.
+- `apps/docs/content/docs/**/meta.json`: documentation navigation and section ordering.
+
+## Shared packages
+
+- `packages/*/package.json`: exports, package scripts, and dependencies.
+- `packages/*/env.ts`: runtime env validation.
+- `packages/*/.env.example`: package-local example env keys.
+- `packages/ui/src/styles/globals.css`: shared design tokens and Tailwind CSS variables.
+
+## Tooling
+
+- `tooling/oxlint`: shared lint configuration.
+- `tooling/tsconfig`: shared TypeScript base configs.
+- `tooling/playwright`: shared Playwright configuration.
+- `lefthook.yml`: local commit hooks.
+- `commitlint.config.ts`: Conventional Commit validation.
+
+## Documentation rules
+
+- Keep English and Simplified Chinese docs structurally aligned.
+- Add env docs only after the key exists in code.
+- Update `meta.json` when adding or renaming docs pages.
+- Preserve upstream attribution in README, NOTICE, license notes, and upstream sync documentation.

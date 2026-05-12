@@ -1,0 +1,57 @@
+---
+title: 环境变量
+description: 按读取它们的 package 说明必填和可选 env keys。
+icon: KeyRound
+---
+
+LaunchBase 只记录 `.env.example` 和当前 `env.ts` 文件中存在的环境变量。真实值应保存在本地或部署环境中。不要提交 `.env` 文件、tokens、DSNs 或生产 URL。
+
+## 根目录与 web app
+
+根目录 `.env.example` 与 `apps/web/.env.example` 当前保持一致，用于本地开发和 web 部署。
+
+| 变量 | 状态 | 读取方 | 说明 |
+| --- | --- | --- | --- |
+| `DATABASE_URL` | 必填 | `@repo/db` | PostgreSQL 连接字符串。本地默认指向 Docker PostgreSQL。 |
+| `UPSTASH_REDIS_REST_URL` | 必填 | `@repo/redis`、`@repo/db`、`@repo/auth` | 本地默认指向 Redis HTTP bridge。 |
+| `UPSTASH_REDIS_REST_TOKEN` | 必填 | `@repo/redis`、`@repo/db`、`@repo/auth` | 本地默认是 `launchbase`。生产环境使用真实 Upstash token。 |
+| `BETTER_AUTH_SECRET` | 必填 | `@repo/auth` | 至少 32 个字符。每个环境使用唯一值。 |
+| `GOOGLE_CLIENT_ID` | 可选 | `@repo/auth` | 与 `GOOGLE_CLIENT_SECRET` 同时设置时启用 Google OAuth。 |
+| `GOOGLE_CLIENT_SECRET` | 可选 | `@repo/auth` | 未启用 Google 登录时保持为空。 |
+| `NEXT_PUBLIC_ASSET_ORIGIN` | 可选 | `@repo/security` | 将指定 asset origin 加入 CSP。必须是 HTTP(S) URL。 |
+| `NEXT_PUBLIC_POSTHOG_KEY` | 可选 | `@repo/analytics` | 设置时必须以 `phc_` 开头。 |
+| `NEXT_PUBLIC_POSTHOG_HOST` | 可选 | `@repo/analytics` | PostHog API host。仅启用 PostHog 时需要。 |
+| `NEXT_PUBLIC_SENTRY_DSN` | 可选 | `@repo/telemetry` | 在生产环境启用 Sentry client、server 和 edge instrumentation。 |
+| `NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT` | 可选 | `@repo/security` | 可选 CSP report endpoint。 |
+| `SENTRY_ORG` | 可选 | `@repo/telemetry` | Next.js Sentry wrapper 用于 release/source map 集成。 |
+| `SENTRY_PROJECT` | 可选 | `@repo/telemetry` | 与 `SENTRY_ORG` 和 `SENTRY_AUTH_TOKEN` 配合使用。 |
+| `SENTRY_AUTH_TOKEN` | 可选 | `@repo/telemetry` | 仅 Sentry upload 集成需要。 |
+
+## Package 示例
+
+Package 级 `.env.example` 记录各 package 的本地职责：
+
+- `packages/auth/.env.example`：`BETTER_AUTH_SECRET`、`GOOGLE_CLIENT_ID`、`GOOGLE_CLIENT_SECRET`。
+- `packages/db/.env.example`：`DATABASE_URL`、`UPSTASH_REDIS_REST_URL`、`UPSTASH_REDIS_REST_TOKEN`。
+- `packages/redis/.env.example`：`UPSTASH_REDIS_REST_URL`、`UPSTASH_REDIS_REST_TOKEN`。
+- `packages/analytics/.env.example`：`NEXT_PUBLIC_POSTHOG_KEY`、`NEXT_PUBLIC_POSTHOG_HOST`。
+- `packages/security/.env.example`：`NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT`。
+- `packages/telemetry/.env.example`：`NEXT_PUBLIC_SENTRY_DSN`、`SENTRY_ORG`、`SENTRY_PROJECT`、`SENTRY_AUTH_TOKEN`。
+
+`packages/email/env.ts` 当前没有 provider variables。不要在 provider 代码存在前添加 email provider env keys。
+
+## 本地默认值
+
+```txt
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/launchbase_db"
+UPSTASH_REDIS_REST_URL="http://localhost:8079"
+UPSTASH_REDIS_REST_TOKEN="launchbase"
+BETTER_AUTH_SECRET="replace-with-at-least-32-random-characters"
+```
+
+## 校验说明
+
+- 启用空字符串转 undefined 的 package 会把空可选值视为未设置。
+- `GOOGLE_CLIENT_ID` 和 `GOOGLE_CLIENT_SECRET` 默认是空字符串；只有二者同时存在时才启用 Google 登录。
+- 只有 `SENTRY_ORG`、`SENTRY_PROJECT` 和 `SENTRY_AUTH_TOKEN` 都存在时，Sentry build upload 才会启用。
+- public 变量也需要谨慎处理。不要把 secret 放入 `NEXT_PUBLIC_*` keys。

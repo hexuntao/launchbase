@@ -1,0 +1,52 @@
+---
+title: Scripts
+description: Root, app, package, and database commands used by LaunchBase.
+icon: Terminal
+---
+
+## Root scripts
+
+| Command | Purpose |
+| --- | --- |
+| `pnpm dev` | Run all dev tasks through Turborepo with a local Better Auth fallback secret. |
+| `pnpm build` | Run `turbo build` for apps and dependent packages. |
+| `pnpm lint` | Run workspace lint tasks. |
+| `pnpm typecheck` | Run workspace typecheck tasks. |
+| `pnpm fmt` | Run `oxfmt`. |
+| `pnpm clean` | Clean Turborepo output, Fallow output, and dependencies. |
+| `pnpm docs:dev` | Run docs dev tasks. |
+| `pnpm docs:build` | Build docs and dependencies. |
+| `pnpm web:dev` | Run web dev tasks. |
+| `pnpm web:build` | Build web and dependencies. |
+| `pnpm web:e2e` | Run the web Playwright e2e suite. |
+| `pnpm docker:up` | Start local PostgreSQL, Redis, and Redis HTTP bridge. |
+| `pnpm docker:down` | Stop local services. |
+| `pnpm docker:clean` | Stop local services and remove volumes. |
+
+## Docs scripts
+
+| Command | Purpose |
+| --- | --- |
+| `pnpm --filter docs typecheck` | Run Next.js typegen, Fumadocs generation, and TypeScript checks for docs. |
+| `pnpm docs:build` | Validate docs content, navigation, and production build. |
+
+## Package scripts
+
+Most packages expose `lint` and `typecheck`. Use package filters when working in a single package:
+
+```bash
+pnpm --filter @repo/ui typecheck
+pnpm --filter @repo/db typecheck
+pnpm --filter @repo/redis typecheck
+```
+
+## Database scripts
+
+```bash
+pnpm --filter @repo/db db:generate
+pnpm --filter @repo/db db:migrate
+pnpm --filter @repo/db db:push
+pnpm --filter @repo/db db:studio
+```
+
+Do not run migration or push commands without explicit human approval.

@@ -1,0 +1,87 @@
+---
+title: 快速开始
+description: 安装 LaunchBase、配置本地服务、运行应用并验证 workspace。
+icon: Rocket
+---
+
+## 前置要求
+
+- Node.js 22 或更高版本。
+- pnpm 10.33.4，或兼容的 pnpm 10 版本。
+- Docker，用于本地 PostgreSQL、Redis 和 Redis HTTP bridge。
+
+## 安装
+
+```bash
+pnpm install
+cp .env.example .env
+cp apps/web/.env.example apps/web/.env
+```
+
+生成至少 32 个字符的本地 Better Auth secret：
+
+```bash
+openssl rand -base64 32
+```
+
+将生成值写入复制出来的 env 文件中的 `BETTER_AUTH_SECRET`。不要提交 `.env` 文件或真实 secret。
+
+## 启动服务
+
+```bash
+pnpm docker:up
+```
+
+该命令会启动 `localhost:5432` 上的 PostgreSQL、`localhost:6379` 上的 Redis，以及 `localhost:8079` 上的本地 Redis HTTP bridge。
+
+结束后停止服务：
+
+```bash
+pnpm docker:down
+```
+
+## 运行应用
+
+运行 web app：
+
+```bash
+pnpm web:dev
+```
+
+运行 docs app：
+
+```bash
+pnpm docs:dev
+```
+
+开发脚本使用 `portless`。默认本地域名为 `web.launchbase.localhost` 和 `docs.launchbase.localhost`。
+
+## 构建和验证
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+docs 改动的聚焦检查：
+
+```bash
+pnpm --filter docs typecheck
+pnpm docs:build
+```
+
+web 改动的聚焦检查：
+
+```bash
+pnpm --filter web typecheck
+pnpm web:build
+```
+
+## 常见问题
+
+- `BETTER_AUTH_SECRET` 至少需要 32 个字符。
+- `DATABASE_URL` 必须指向本地 PostgreSQL 容器或可访问的 PostgreSQL 数据库。
+- `UPSTASH_REDIS_REST_URL` 和 `UPSTASH_REDIS_REST_TOKEN` 是必填项，因为 Redis env 校验被 auth 和 database packages 共享使用。
+- 如果浏览器无法解析 `web.launchbase.localhost` 或 `docs.launchbase.localhost`，使用 dev server 输出的本地端口访问。
+- 如果修改 MDX 导航后构建失败，先运行 `pnpm --filter docs typecheck` 重新生成 Fumadocs source files 和 Next.js typegen。

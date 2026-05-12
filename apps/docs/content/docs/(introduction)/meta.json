@@ -1,4 +1,4 @@
 {
   "title": "Introduction",
-  "pages": ["---Introduction---", "index", "dev-toolkit", "tech-stack", "setup"]
+  "pages": ["index", "quick-start", "project-structure", "tech-stack"]
 }

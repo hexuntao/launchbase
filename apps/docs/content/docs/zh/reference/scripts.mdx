@@ -1,0 +1,52 @@
+---
+title: Scripts
+description: LaunchBase 使用的根目录、app、package 和 database 命令。
+icon: Terminal
+---
+
+## 根目录脚本
+
+| 命令 | 作用 |
+| --- | --- |
+| `pnpm dev` | 通过 Turborepo 运行所有 dev tasks，并提供本地 Better Auth fallback secret。 |
+| `pnpm build` | 为 apps 和依赖 packages 运行 `turbo build`。 |
+| `pnpm lint` | 运行 workspace lint tasks。 |
+| `pnpm typecheck` | 运行 workspace typecheck tasks。 |
+| `pnpm fmt` | 运行 `oxfmt`。 |
+| `pnpm clean` | 清理 Turborepo 输出、Fallow 输出和依赖。 |
+| `pnpm docs:dev` | 运行 docs dev tasks。 |
+| `pnpm docs:build` | 构建 docs 及其依赖。 |
+| `pnpm web:dev` | 运行 web dev tasks。 |
+| `pnpm web:build` | 构建 web 及其依赖。 |
+| `pnpm web:e2e` | 运行 web Playwright e2e 套件。 |
+| `pnpm docker:up` | 启动本地 PostgreSQL、Redis 和 Redis HTTP bridge。 |
+| `pnpm docker:down` | 停止本地服务。 |
+| `pnpm docker:clean` | 停止本地服务并移除 volumes。 |
+
+## Docs scripts
+
+| 命令 | 作用 |
+| --- | --- |
+| `pnpm --filter docs typecheck` | 为 docs 运行 Next.js typegen、Fumadocs generation 和 TypeScript 检查。 |
+| `pnpm docs:build` | 验证 docs 内容、导航和生产构建。 |
+
+## Package scripts
+
+多数 packages 暴露 `lint` 和 `typecheck`。单个 package 工作时使用 filters：
+
+```bash
+pnpm --filter @repo/ui typecheck
+pnpm --filter @repo/db typecheck
+pnpm --filter @repo/redis typecheck
+```
+
+## Database scripts
+
+```bash
+pnpm --filter @repo/db db:generate
+pnpm --filter @repo/db db:migrate
+pnpm --filter @repo/db db:push
+pnpm --filter @repo/db db:studio
+```
+
+没有明确人工确认时，不要运行 migration 或 push 命令。

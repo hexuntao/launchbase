@@ -1,0 +1,41 @@
+---
+title: 配置
+description: 定义 workspace、docs、tooling 和部署行为的主要配置文件。
+icon: Settings
+---
+
+## Workspace
+
+- `pnpm-workspace.yaml`：workspace package globs 和 catalog versions。
+- `turbo.json`：build、dev、lint、typecheck、e2e 和 clean 的任务图。
+- `package.json`：根目录脚本和 package manager 版本。
+- `docker-compose.yml`：本地 PostgreSQL、Redis 和 Redis HTTP bridge。
+
+## 应用
+
+- `apps/web/next.config.ts`：web app Next.js 配置和 Sentry wrapper。
+- `apps/docs/next.config.ts`：docs app Next.js 配置。
+- `apps/docs/source.config.ts`：Fumadocs MDX collection 配置。
+- `apps/docs/content/docs/**/meta.json`：文档导航和章节排序。
+
+## 共享 packages
+
+- `packages/*/package.json`：exports、package scripts 和 dependencies。
+- `packages/*/env.ts`：runtime env validation。
+- `packages/*/.env.example`：package-local env 示例。
+- `packages/ui/src/styles/globals.css`：共享 design tokens 和 Tailwind CSS variables。
+
+## Tooling
+
+- `tooling/oxlint`：共享 lint 配置。
+- `tooling/tsconfig`：共享 TypeScript base configs。
+- `tooling/playwright`：共享 Playwright 配置。
+- `lefthook.yml`：本地 commit hooks。
+- `commitlint.config.ts`：Conventional Commit 校验。
+
+## 文档规则
+
+- 英文和简体中文文档结构保持一致。
+- 只有 env key 已存在于代码中，才新增 env 文档。
+- 新增或重命名 docs 页面时更新 `meta.json`。
+- 在 README、NOTICE、许可说明和上游同步文档中保留上游署名。

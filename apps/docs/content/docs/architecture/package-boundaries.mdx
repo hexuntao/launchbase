@@ -1,0 +1,45 @@
+---
+title: Package Boundaries
+description: Package responsibilities, public APIs, usage rules, and AI coding notes.
+icon: Network
+---
+
+Package boundaries are part of the LaunchBase architecture. Treat package exports as contracts and avoid reaching into implementation files from apps.
+
+## Boundary table
+
+| Package | Purpose | Public API | Do not import |
+| --- | --- | --- | --- |
+| `@repo/ui` | Shared UI primitives, globals, hooks, utilities, fonts | `@repo/ui/*`, `@repo/ui/globals.css`, `@repo/ui/fonts` | Auth, db, rpc, analytics, telemetry, app code |
+| `@repo/auth` | Better Auth server/client setup | `@repo/auth/server`, `@repo/auth/client` | App routes or database internals beyond exported `@repo/db` contracts |
+| `@repo/db` | Drizzle schema, database client, migration config | `@repo/db`, `@repo/db/schema` | App feature logic or alternate database clients |
+| `@repo/redis` | Upstash Redis client, prefixing, rate limiting | `@repo/redis`, `@repo/redis/rate-limit`, `@repo/redis/env` | App code or hard-coded production Redis values |
+| `@repo/rpc` | oRPC context, procedures, router exports | `@repo/rpc`, `@repo/rpc/*` | UI components or app route handlers |
+| `@repo/security` | Security headers and CSP | `@repo/security/security-headers` | Feature modules or broad wildcard origins without review |
+| `@repo/analytics` | PostHog browser analytics | `@repo/analytics/posthog` | Server telemetry or Sentry integration |
+| `@repo/telemetry` | Sentry and Evlog integration | `@repo/telemetry/sentry/*`, `@repo/telemetry/evlog`, `@repo/telemetry/evlog/next` | Analytics tracking or app-specific feature code |
+| `@repo/email` | React Email templates and rendering | `@repo/email` | Provider env keys before provider code exists |
+
+## AI coding notes
+
+- Read the package `AGENTS.md` before modifying a package.
+- Update the package README when changing purpose, exports, env keys, or validation commands.
+- Keep product-specific copy and page layout in apps.
+- Keep database schema changes in `@repo/db`.
+- Keep auth runtime behavior in `@repo/auth`.
+- Keep browser analytics in `@repo/analytics` and server/client telemetry in `@repo/telemetry`.
+- Run package-focused typechecks when changing package exports, then run the root baseline before handoff.
+
+## Validation by area
+
+```bash
+pnpm --filter @repo/ui typecheck
+pnpm --filter @repo/db typecheck
+pnpm --filter @repo/redis typecheck
+pnpm --filter @repo/security typecheck
+pnpm --filter @repo/telemetry typecheck
+pnpm typecheck
+pnpm build
+```
+
+Use `pnpm typecheck` when a package currently relies on root validation guidance.

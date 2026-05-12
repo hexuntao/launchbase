@@ -24,8 +24,8 @@ export function baseOptions(locale: Locale = "en", options: BaseOptions = {}): B
       url: getLocalizedPath(locale, "/"),
       title: (
         <div className="flex items-center gap-2">
-          <img src="/images/icon.svg" alt="LaunchBase" className="h-8 w-auto dark:invert" />
-          <span className="font-asul text-2xl">LaunchBase</span>
+          <img src="/images/icon.svg" alt="LaunchBase" className="h-7 w-auto dark:invert" />
+          <span className="text-lg font-semibold tracking-normal">LaunchBase</span>
         </div>
       ),
     },

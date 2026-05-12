@@ -1,0 +1,46 @@
+---
+title: Monorepo Architecture
+description: How LaunchBase separates apps, shared packages, tooling, docs, and validation.
+icon: Boxes
+---
+
+LaunchBase keeps deployable applications small and moves reusable behavior into package-owned contracts. This lets product code evolve without turning the monorepo into a shared global namespace.
+
+## App layer
+
+- `apps/web` owns the user-facing product app, route handlers, admin pages, web metadata, and product composition.
+- `apps/docs` owns Fumadocs configuration, MDX content, docs metadata, navigation, search, and documentation-specific UI.
+
+Apps may depend on `@repo/*` packages. Packages must not import from `apps/*`.
+
+## Runtime packages
+
+- `@repo/auth`: Better Auth server/client setup and provider configuration.
+- `@repo/db`: Drizzle schema, PostgreSQL client, and migration configuration.
+- `@repo/redis`: Upstash Redis client and rate limiting helpers.
+- `@repo/rpc`: oRPC context, procedures, and router exports.
+- `@repo/security`: security headers and Content Security Policy configuration.
+- `@repo/analytics`: browser analytics.
+- `@repo/telemetry`: Sentry and Evlog instrumentation.
+- `@repo/email`: React Email templates and rendering utilities.
+
+## UI package
+
+`@repo/ui` owns shared primitives, Tailwind globals, hooks, utilities, and font exports. Product-specific page composition stays in apps.
+
+## Tooling
+
+- `turbo.json` defines build, dev, lint, typecheck, e2e, and clean task relationships.
+- `pnpm-workspace.yaml` defines workspace packages and catalog versions.
+- `tooling/oxlint`, `tooling/playwright`, and `tooling/tsconfig` centralize shared tool configuration.
+
+## Documentation contracts
+
+- `AGENTS.md` files explain scope and constraints for humans and AI coding agents.
+- `apps/web/DESIGN.md` defines the current visual system.
+- Package READMEs summarize each package's purpose, exports, boundaries, and validation commands.
+- Docs pages provide the navigable, bilingual mirror of these contracts.
+
+## Change rule
+
+When a change crosses app/package boundaries, update both the code contract and the documentation contract. A shared behavior change should not live only in app code or only in prose.

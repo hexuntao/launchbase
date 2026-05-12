@@ -1,0 +1,48 @@
+---
+title: Troubleshooting
+description: Common local development, docs, build, env, and deployment issues.
+icon: CircleHelp
+---
+
+## Env validation fails
+
+- Confirm `.env` and `apps/web/.env` exist when running the web app locally.
+- Ensure `BETTER_AUTH_SECRET` is at least 32 characters.
+- Set both `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`; they are validated together through shared packages.
+- Keep optional integrations empty unless they are enabled.
+
+## Database cannot connect
+
+- Run `pnpm docker:up` before local database work.
+- Confirm `DATABASE_URL` points to `postgresql://postgres:postgres@localhost:5432/launchbase_db` for the default local Docker setup.
+- Check whether another PostgreSQL process is already using port `5432`.
+
+## Docs navigation breaks
+
+- Confirm the page exists under `apps/docs/content/docs`.
+- Update the closest `meta.json`.
+- Run `pnpm --filter docs typecheck` to regenerate Fumadocs source files and Next.js types.
+- Run `pnpm docs:build` before handoff.
+
+## Local hostnames do not resolve
+
+The dev scripts use `portless`, so the intended hostnames are `web.launchbase.localhost` and `docs.launchbase.localhost`. If your browser or network setup does not resolve them, use the local port printed by the dev server.
+
+## Vercel build cannot resolve packages
+
+- Use pnpm.
+- Keep install/build commands running with monorepo context.
+- Keep workspace files at the repository root.
+- Do not copy shared packages into an app directory to work around resolution.
+
+## Sentry source map upload is skipped
+
+Sentry upload requires all three server-side values:
+
+```txt
+SENTRY_ORG
+SENTRY_PROJECT
+SENTRY_AUTH_TOKEN
+```
+
+When any value is missing, the wrapper should stay silent instead of failing local development.

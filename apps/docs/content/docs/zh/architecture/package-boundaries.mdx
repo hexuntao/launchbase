@@ -1,0 +1,45 @@
+---
+title: Package 边界
+description: Package 职责、公开 API、使用规则和 AI 编码注意事项。
+icon: Network
+---
+
+Package 边界是 LaunchBase 架构的一部分。把 package exports 当作契约，避免 apps 直接读取实现文件。
+
+## 边界表
+
+| Package | 目的 | Public API | 不要导入 |
+| --- | --- | --- | --- |
+| `@repo/ui` | 共享 UI primitives、globals、hooks、utilities、fonts | `@repo/ui/*`、`@repo/ui/globals.css`、`@repo/ui/fonts` | Auth、db、rpc、analytics、telemetry、app code |
+| `@repo/auth` | Better Auth server/client setup | `@repo/auth/server`、`@repo/auth/client` | App routes 或越过 `@repo/db` exports 的数据库内部实现 |
+| `@repo/db` | Drizzle schema、database client、migration config | `@repo/db`、`@repo/db/schema` | App feature logic 或备用 database clients |
+| `@repo/redis` | Upstash Redis client、prefixing、rate limiting | `@repo/redis`、`@repo/redis/rate-limit`、`@repo/redis/env` | App code 或硬编码生产 Redis 值 |
+| `@repo/rpc` | oRPC context、procedures、router exports | `@repo/rpc`、`@repo/rpc/*` | UI components 或 app route handlers |
+| `@repo/security` | Security headers 和 CSP | `@repo/security/security-headers` | Feature modules 或未经审查的 broad wildcard origins |
+| `@repo/analytics` | PostHog browser analytics | `@repo/analytics/posthog` | Server telemetry 或 Sentry 集成 |
+| `@repo/telemetry` | Sentry 和 Evlog 集成 | `@repo/telemetry/sentry/*`、`@repo/telemetry/evlog`、`@repo/telemetry/evlog/next` | Analytics tracking 或 app-specific feature code |
+| `@repo/email` | React Email templates 和渲染 | `@repo/email` | Provider 代码存在前不要添加 provider env keys |
+
+## AI 编码注意事项
+
+- 修改 package 前阅读对应 `AGENTS.md`。
+- 修改目的、exports、env keys 或验证命令时，同步更新 package README。
+- 产品特定 copy 和页面布局保留在 apps。
+- 数据库 schema 改动保留在 `@repo/db`。
+- Auth runtime 行为保留在 `@repo/auth`。
+- 浏览器 analytics 保留在 `@repo/analytics`，server/client telemetry 保留在 `@repo/telemetry`。
+- 修改 package exports 时先运行 package-focused typechecks，交付前运行根目录基线检查。
+
+## 按区域验证
+
+```bash
+pnpm --filter @repo/ui typecheck
+pnpm --filter @repo/db typecheck
+pnpm --filter @repo/redis typecheck
+pnpm --filter @repo/security typecheck
+pnpm --filter @repo/telemetry typecheck
+pnpm typecheck
+pnpm build
+```
+
+当 package 当前依赖根目录验证说明时，使用 `pnpm typecheck`。

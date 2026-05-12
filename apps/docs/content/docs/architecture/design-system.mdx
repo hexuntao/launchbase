@@ -1,0 +1,86 @@
+---
+title: Design System
+description: Visual direction, tokens, layout rules, and documentation consistency requirements.
+icon: Palette
+---
+
+LaunchBase uses an OpenAI Developers-inspired engineering minimalism, combined with Vercel's developer product clarity and Linear's refined workflow detail.
+
+The design system should feel precise, calm, technical, production-ready, minimal without being empty, and developer-first.
+
+## Direction
+
+- White and near-white backgrounds.
+- Near-black foreground text.
+- Neutral gray surfaces and crisp borders.
+- Soft cards with restrained radius.
+- Subtle shadow only when hierarchy needs it.
+- Code-native previews for terminal, file tree, deploy, and workflow surfaces.
+
+## Tokens
+
+```css
+--background: #ffffff;
+--foreground: #0d0d0d;
+--muted: #f6f6f6;
+--muted-foreground: #666666;
+--card: #ffffff;
+--card-subtle: #f9f9f9;
+--border: #e5e5e5;
+--border-subtle: #eeeeee;
+--primary: #0d0d0d;
+--primary-foreground: #ffffff;
+--secondary: #f3f3f3;
+--secondary-foreground: #171717;
+--accent: #ededed;
+--accent-foreground: #111111;
+--code-bg: #0d0d0d;
+--code-fg: #f5f5f5;
+--radius-sm: 8px;
+--radius-md: 10px;
+--radius-lg: 16px;
+--radius-pill: 9999px;
+--shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.06);
+--shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.04);
+```
+
+## Typography
+
+- UI and prose: Geist Sans, Inter, system-ui.
+- Code: Geist Mono, Commit Mono, JetBrains Mono, ui-monospace.
+- Use tight, clear hierarchy. Avoid oversized marketing headings inside documentation content.
+
+## Spacing and radius
+
+- Prefer compact documentation density with enough reading space.
+- Use 8px for small controls, 10px for medium surfaces, 16px for larger panels, and full pill radius for pills.
+- Avoid nested card-on-card layouts.
+
+## Components
+
+- Buttons should be plain, high-contrast, and purpose-specific.
+- Cards should use a 1px border and only subtle shadow.
+- Code blocks should feel like tools, not decoration.
+- Callouts should be calm and neutral; reserve strong contrast for warnings.
+- Tables should prioritize scanability over decoration.
+
+## Consistency requirements
+
+- README, `github.svg`, docs, and web should share the same neutral engineering language.
+- Do not copy OpenAI, Vercel, or Linear assets, logos, exact copy, or proprietary visual marks.
+- Keep SVG text primarily English for GitHub and README surfaces.
+- Chinese documentation should be a complete mirror, not mixed inline with English except for code, paths, package names, and commands.
+
+## Do
+
+- Use precise technical copy.
+- Use black, white, and neutral grays as the primary palette.
+- Use small, meaningful visual details such as borders, hairlines, and code previews.
+- Keep interface density appropriate for developers reading configuration and architecture.
+
+## Don't
+
+- Do not use high-saturation color, blue-purple SaaS gradients, cartoon illustrations, or heavy shadows.
+- Do not use large decorative hero layouts in docs.
+- Do not create fake architecture directories in structure docs.
+- Do not let generated assets contain misspellings of `LaunchBase`.

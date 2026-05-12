@@ -5,7 +5,7 @@
 LaunchBase is a production-grade TypeScript monorepo starter for building modern full-stack products with clear package boundaries, typed APIs, database foundations, deployment readiness, and AI coding rules.
 
 - Demo: [launchbase-web.vercel.app](https://launchbase-web.vercel.app)
-- Docs: `apps/docs/content/docs`
+- Docs: [`apps/docs/content/docs`](./apps/docs/content/docs) and [`apps/docs/README.md`](./apps/docs/README.md)
 - Chinese README: [README.zh-CN.md](./README.zh-CN.md)
 
 ## Features

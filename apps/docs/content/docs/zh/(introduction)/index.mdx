@@ -1,12 +1,23 @@
 ---
-title: 概览
-description: LaunchBase 的完整概览
+title: LaunchBase 文档
+description: LaunchBase 的生产级 TypeScript monorepo 文档。
 icon: Box
 ---
 
 ![LaunchBase header image](/images/home.svg)
 
-LaunchBase 是一个面向现代 TypeScript 全栈产品的生产可用 monorepo 启动模板。它基于上游 [`stack-found/vazen`](https://github.com/stack-found/vazen) 构建，并在保留上游署名的同时，演进为 `hexuntao/launchbase` 的独立启动模板。
+LaunchBase 是一个生产级 TypeScript monorepo 启动模板，用于使用 Turborepo、Next.js、PostgreSQL 和 Vercel 构建现代全栈产品。
+
+它面向需要清晰基础设施的开发者：类型化包边界、可部署默认配置、数据库访问、可观测性入口和明确的 AI 编码规则。英文文档作为开源社区默认入口，简体中文文档作为完整的本地开发者镜像。
+
+## 从这里开始
+
+- [快速开始](/zh/docs/quick-start)：安装、配置 env、本地运行并验证 workspace。
+- [项目结构](/zh/docs/project-structure)：修改前先理解 app 与 package 布局。
+- [环境变量](/zh/docs/getting-started/environment-variables)：按读取它们的 package 解释必填和可选 env keys。
+- [AI 编码工作流](/zh/docs/ai-coding/workflow)：让 Codex 和其他 coding agent 在不破坏包边界的前提下工作。
+- [部署流程](/zh/docs/getting-started/deployment)：在 Vercel 部署 monorepo web app。
+- [设计系统](/zh/docs/architecture/design-system)：保持 docs、web、README 和 SVG 资产风格一致。
 
 ## 包含内容
 
@@ -22,11 +33,15 @@ LaunchBase 是一个面向现代 TypeScript 全栈产品的生产可用 monorepo
 - `packages/telemetry`：Sentry 和 Evlog 集成。
 - `packages/email`：React Email 渲染工具和模板。
 
-## 架构规则
+## 为什么适合 AI 编码
+
+LaunchBase 不依赖 prompt 记忆，而是把 agent 工作约束写入仓库。根目录和 package 级 `AGENTS.md` 定义范围、禁止事项、验证命令和包边界。`apps/web/DESIGN.md` 定义 UI 工作的视觉系统。文档页同步这些规则，让人和 agent 使用同一份契约。
+
+## Monorepo 结构
 
 应用负责组合共享包。共享包不能从 `apps/*` 导入代码。数据库访问属于 `@repo/db`，认证属于 `@repo/auth`，路由处理器在 `apps/web` 中保持轻量，共享 UI 保持在 `@repo/ui` 中。
 
-## 质量基线
+## 部署和验证
 
 任何代码改动都应保持以下检查通过：
 
@@ -38,6 +53,8 @@ pnpm build
 
 在单一区域开发时先运行聚焦检查，合并前再运行完整基线。
 
+使用 Vercel 部署 `apps/web`：Node.js 22，install command 为 `pnpm install --frozen-lockfile`，build command 为 `pnpm web:build`，环境变量见部署指南。
+
 ## 上游署名
 
-LaunchBase 保留 Vazen 的 MIT 许可义务。不要从 README、NOTICE、许可说明或上游同步流程文档中移除上游引用。
+LaunchBase 派生自上游 [`stack-found/vazen`](https://github.com/stack-found/vazen)。请在 README、NOTICE、许可说明和上游同步流程文档中保留该署名。

@@ -1,0 +1,45 @@
+---
+title: Project Structure
+description: The current LaunchBase app, package, tooling, and documentation layout.
+icon: FolderTree
+---
+
+LaunchBase is a pnpm workspace orchestrated by Turborepo. Apps own deployable surfaces. Packages own reusable runtime, UI, data, and tooling contracts.
+
+## Apps
+
+- `apps/web`: primary Next.js product app with auth routes, RPC route handlers, admin pages, analytics, telemetry, and the public LaunchBase homepage.
+- `apps/docs`: Fumadocs documentation site with English and Simplified Chinese content under `content/docs`.
+
+There is no `apps/api` directory in the current repository. API behavior is exposed through `apps/web` route handlers and shared `@repo/rpc` package contracts.
+
+## Packages
+
+- `packages/ui`: shared UI primitives, global styles, hooks, utilities, and font exports.
+- `packages/auth`: Better Auth server and client setup, provider config, sessions, and auth storage integration.
+- `packages/db`: Drizzle schema, PostgreSQL client, migration config, and schema documentation.
+- `packages/redis`: Upstash Redis client, key prefixing, and rate limiting helpers.
+- `packages/rpc`: oRPC context, procedures, and router exports.
+- `packages/security`: shared security headers and Content Security Policy setup.
+- `packages/analytics`: PostHog browser analytics integration.
+- `packages/telemetry`: Sentry and Evlog instrumentation exports.
+- `packages/email`: React Email templates and rendering utilities.
+
+There is no `packages/config` or `packages/types` directory in the current repository. Shared TypeScript configuration lives under `tooling/tsconfig`.
+
+## Tooling and tests
+
+- `tooling/oxlint`: shared oxlint configuration and execution wrapper.
+- `tooling/playwright`: shared Playwright configuration.
+- `tooling/tsconfig`: app and library TypeScript base configs.
+- `e2e/web`: Playwright end-to-end smoke tests for the web app.
+- `docker-compose.yml`: local PostgreSQL, Redis, and Redis HTTP bridge.
+
+## Root contracts
+
+- `AGENTS.md`: repository-level coding, package boundary, security, CI, and attribution rules for humans and AI coding agents.
+- `apps/web/DESIGN.md`: product visual system and UI implementation rules.
+- `.env.example`: root env example that mirrors the current required and optional runtime keys.
+- `README.md`: English public entry for GitHub and open-source distribution.
+- `README.zh-CN.md`: Simplified Chinese mirror of the README.
+- `NOTICE.md`: upstream attribution and license notice.

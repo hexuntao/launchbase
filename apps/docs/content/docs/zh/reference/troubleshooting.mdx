@@ -1,0 +1,48 @@
+---
+title: 故障排查
+description: 常见本地开发、docs、build、env 和部署问题。
+icon: CircleHelp
+---
+
+## Env validation 失败
+
+- 本地运行 web app 时确认 `.env` 和 `apps/web/.env` 存在。
+- 确认 `BETTER_AUTH_SECRET` 至少 32 个字符。
+- 同时设置 `UPSTASH_REDIS_REST_URL` 和 `UPSTASH_REDIS_REST_TOKEN`；它们通过共享 packages 一起校验。
+- 未启用可选集成时保持可选值为空。
+
+## 数据库无法连接
+
+- 本地数据库工作前运行 `pnpm docker:up`。
+- 默认本地 Docker 设置下，确认 `DATABASE_URL` 指向 `postgresql://postgres:postgres@localhost:5432/launchbase_db`。
+- 检查是否已有其他 PostgreSQL 进程占用 `5432` 端口。
+
+## Docs 导航异常
+
+- 确认页面位于 `apps/docs/content/docs`。
+- 更新最近的 `meta.json`。
+- 运行 `pnpm --filter docs typecheck` 重新生成 Fumadocs source files 和 Next.js types。
+- 交付前运行 `pnpm docs:build`。
+
+## 本地域名无法解析
+
+开发脚本使用 `portless`，预期域名为 `web.launchbase.localhost` 和 `docs.launchbase.localhost`。如果浏览器或网络设置无法解析，使用 dev server 输出的本地端口访问。
+
+## Vercel 构建无法解析 packages
+
+- 使用 pnpm。
+- 保持 install/build commands 在 monorepo context 中运行。
+- 保持 workspace 文件位于仓库根目录。
+- 不要把共享 packages 复制到 app 目录来规避解析问题。
+
+## Sentry source map upload 被跳过
+
+Sentry upload 需要三个 server-side 值全部存在：
+
+```txt
+SENTRY_ORG
+SENTRY_PROJECT
+SENTRY_AUTH_TOKEN
+```
+
+任一值缺失时，wrapper 应保持静默，而不是阻断本地开发。

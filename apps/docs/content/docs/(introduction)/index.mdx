@@ -1,12 +1,23 @@
 ---
-title: Overview
-description: The complete overview of LaunchBase
+title: LaunchBase Docs
+description: Production-grade TypeScript monorepo documentation for LaunchBase.
 icon: Box
 ---
 
 ![LaunchBase header image](/images/home.svg)
 
-LaunchBase is a production-ready monorepo starter for modern TypeScript full-stack products. It is built from upstream [`stack-found/vazen`](https://github.com/stack-found/vazen) and keeps that attribution visible while evolving the project into an independent starter for `hexuntao/launchbase`.
+LaunchBase is a production-grade TypeScript monorepo starter for building modern full-stack products with Turborepo, Next.js, PostgreSQL, and Vercel.
+
+It is for developers who want a clean foundation with typed package boundaries, deployment-ready defaults, database access, observability hooks, and explicit AI coding rules. The docs use English as the default open-source entry and Simplified Chinese as a complete local developer mirror.
+
+## Start here
+
+- [Quick Start](/docs/quick-start): install, configure env, run locally, and validate the workspace.
+- [Project Structure](/docs/project-structure): understand the app and package layout before editing.
+- [Environment Variables](/docs/getting-started/environment-variables): map required and optional env keys to the packages that read them.
+- [AI Coding Workflow](/docs/ai-coding/workflow): use Codex and other coding agents without breaking package boundaries.
+- [Deployment](/docs/getting-started/deployment): deploy the monorepo web app on Vercel.
+- [Design System](/docs/architecture/design-system): keep docs, web, README, and SVG assets visually aligned.
 
 ## What is included
 
@@ -22,11 +33,15 @@ LaunchBase is a production-ready monorepo starter for modern TypeScript full-sta
 - `packages/telemetry`: Sentry and Evlog integration.
 - `packages/email`: React Email rendering utilities and templates.
 
-## Architecture rules
+## Why it is AI-ready
+
+LaunchBase makes agent work explicit instead of relying on prompt memory. Root and package-level `AGENTS.md` files define scope, forbidden actions, validation, and package boundaries. `apps/web/DESIGN.md` defines the visual system for UI work. Docs pages mirror these rules so humans and agents can work from the same contract.
+
+## Monorepo structure
 
 Apps compose shared packages. Shared packages do not import from `apps/*`. Database access belongs in `@repo/db`, authentication belongs in `@repo/auth`, route handlers stay thin in `apps/web`, and shared UI remains presentation-focused in `@repo/ui`.
 
-## Quality baseline
+## Deploy and validate
 
 Every code change should keep these checks passing:
 
@@ -38,6 +53,8 @@ pnpm build
 
 Run focused checks when working in one area, then run the full baseline before merging.
 
+Deploy `apps/web` on Vercel with `pnpm install --frozen-lockfile`, `pnpm web:build`, Node.js 22, and the environment variables listed in the deployment guide.
+
 ## Upstream attribution
 
-LaunchBase preserves the MIT license obligations from Vazen. Do not remove the upstream reference from README, NOTICE, license notes, or upstream sync workflow documentation.
+LaunchBase is derived from upstream [`stack-found/vazen`](https://github.com/stack-found/vazen). Keep that attribution visible in README, NOTICE, license notes, and upstream sync workflow documentation.

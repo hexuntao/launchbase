@@ -1,5 +1,16 @@
 {
   "title": "LaunchBase",
   "root": true,
-  "pages": ["...(introduction)", "getting-started", "security", "ai-coding"]
+  "pages": [
+    "---Introduction---",
+    "...(introduction)",
+    "---Guides---",
+    "getting-started",
+    "ai-coding",
+    "---Architecture---",
+    "architecture",
+    "---Reference---",
+    "reference",
+    "security"
+  ]
 }

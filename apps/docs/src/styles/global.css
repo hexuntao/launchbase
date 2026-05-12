@@ -1,3 +1,27 @@
 @import "@repo/ui/globals.css";
 @import "fumadocs-ui/css/black.css";
 @import "fumadocs-ui/css/preset.css";
+
+:root {
+  --fd-layout-width: 1480px;
+  --fd-page-width: 860px;
+}
+
+body {
+  background:
+    linear-gradient(to bottom, rgba(246, 246, 246, 0.65), rgba(255, 255, 255, 0) 260px), var(--background);
+}
+
+.prose code {
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  background: var(--muted);
+  padding: 0.12rem 0.3rem;
+  font-size: 0.88em;
+}
+
+.prose pre code {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}

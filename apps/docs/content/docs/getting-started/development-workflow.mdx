@@ -1,0 +1,85 @@
+---
+title: Development Workflow
+description: Local workflow for focused changes, validation, commits, and documentation updates.
+icon: GitBranch
+---
+
+## Work in small slices
+
+1. Read the relevant `AGENTS.md` file before editing an app or package.
+2. Read the files you plan to change and nearby tests or documentation.
+3. Make the smallest change that solves the task.
+4. Run focused checks first, then the root baseline before handoff.
+
+## Common commands
+
+```bash
+pnpm install
+pnpm docker:up
+pnpm web:dev
+pnpm docs:dev
+pnpm fmt
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+Use docs-focused checks for documentation changes:
+
+```bash
+pnpm --filter docs typecheck
+pnpm docs:build
+```
+
+Use web-focused checks for product app changes:
+
+```bash
+pnpm --filter web typecheck
+pnpm web:build
+```
+
+## Formatting and commits
+
+LaunchBase uses `oxfmt` and `oxlint`. Lefthook runs formatting, linting, and commit message checks during commits.
+
+Commit messages use Conventional Commits:
+
+```txt
+docs(docs): expand deployment guide
+feat(web): add typed admin workflow
+fix(auth): handle missing session
+```
+
+Keep each commit focused on one logical change.
+
+## Database work
+
+Database schema and migration commands live in `@repo/db`:
+
+```bash
+pnpm --filter @repo/db db:generate
+pnpm --filter @repo/db db:migrate
+pnpm --filter @repo/db db:studio
+```
+
+Migration commands change database state and require explicit human approval.
+
+## E2E checks
+
+The web e2e suite uses Playwright:
+
+```bash
+pnpm --filter @e2e/web exec playwright install chromium
+pnpm web:e2e
+```
+
+The e2e server starts a production web build on `localhost:3000` by default. Set `PLAYWRIGHT_PORT` when the port is already in use.
+
+## Documentation updates
+
+When changing behavior, update the closest documentation entry:
+
+- App-level behavior: app README, docs guide, or route-specific docs.
+- Package boundary: package README and `apps/docs/content/docs/architecture/package-boundaries.mdx`.
+- Env changes: `.env.example`, package `.env.example`, and the Environment Variables page.
+- UI system changes: `apps/web/DESIGN.md` and the Design System page.

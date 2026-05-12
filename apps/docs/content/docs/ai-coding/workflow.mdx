@@ -11,8 +11,19 @@ Before changing files, an AI coding agent must read:
 - Root `AGENTS.md`.
 - The relevant app or package `AGENTS.md`.
 - `apps/web/DESIGN.md` for UI work.
+- The package README when changing package exports or boundaries.
+- The closest docs page when changing documented behavior.
 
 The agent should also read the files it plans to edit and nearby tests or docs that define the existing pattern.
+
+## What the rule files do
+
+- Root `AGENTS.md` defines repository identity, package boundaries, security rules, CI requirements, env rules, and upstream attribution requirements.
+- App-level `AGENTS.md` files define what the app owns and what it must not import.
+- Package-level `AGENTS.md` files define package responsibility, forbidden changes, dependency boundaries, and focused validation commands.
+- `apps/web/DESIGN.md` defines the LaunchBase engineering minimalism visual system for UI and asset work.
+
+These files are not suggestions. They are local contracts that should guide both human and AI edits.
 
 ## Recommended workflow
 
@@ -22,6 +33,18 @@ The agent should also read the files it plans to edit and nearby tests or docs t
 4. Run the relevant validation commands.
 5. Summarize changed files, validation results, and remaining risks.
 
+## Boundaries that prevent architecture drift
+
+- Apps compose packages; packages do not import from `apps/*`.
+- `@repo/ui` stays presentation-focused and must not import auth, db, rpc, telemetry, security, analytics, or app code.
+- Database schema and clients stay in `@repo/db`.
+- Auth setup stays in `@repo/auth`.
+- Redis clients stay in `@repo/redis`.
+- Browser analytics stays in `@repo/analytics`; Sentry and Evlog stay in `@repo/telemetry`.
+- Security headers and CSP stay in `@repo/security`.
+
+When the requested change crosses a boundary, document the reason and update the relevant package README or docs page.
+
 ## Forbidden actions
 
 - Do not commit secrets, tokens, DSNs, API keys, or `.env` files.
@@ -29,6 +52,16 @@ The agent should also read the files it plans to edit and nearby tests or docs t
 - Do not change unrelated architecture or package ownership.
 - Do not hide that LaunchBase is derived from upstream `stack-found/vazen`.
 - Do not treat `apps/web/src/proxy.ts` as an admin authorization boundary.
+
+## Review workflow
+
+Use this handoff shape for AI-assisted tasks:
+
+1. Changed files and why.
+2. Validation commands and results.
+3. Old-brand or security-sensitive content touched.
+4. Known limitations or checks that could not run.
+5. Whether docs, env examples, package READMEs, or design rules were updated.
 
 ## Codex prompt example
 
