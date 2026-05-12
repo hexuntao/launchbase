@@ -112,12 +112,22 @@ GOOGLE_CLIENT_ID=""
 GOOGLE_CLIENT_SECRET=""
 ```
 
-Optional local analytics and telemetry integrations:
+Optional asset / CSP origin:
 
 ```env
 NEXT_PUBLIC_ASSET_ORIGIN=""
+```
+
+Optional analytics:
+
+```env
 NEXT_PUBLIC_POSTHOG_KEY=""
 NEXT_PUBLIC_POSTHOG_HOST=""
+```
+
+Optional telemetry:
+
+```env
 NEXT_PUBLIC_SENTRY_DSN=""
 NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT=""
 SENTRY_ORG=""
@@ -139,11 +149,17 @@ Optional Google OAuth variables, required only when enabling Google sign-in:
 - `GOOGLE_CLIENT_ID`
 - `GOOGLE_CLIENT_SECRET`
 
-Optional Vercel integrations:
+Optional asset / CSP origin:
 
 - `NEXT_PUBLIC_ASSET_ORIGIN`
+
+Optional PostHog analytics:
+
 - `NEXT_PUBLIC_POSTHOG_KEY`
 - `NEXT_PUBLIC_POSTHOG_HOST`
+
+Optional Sentry telemetry:
+
 - `NEXT_PUBLIC_SENTRY_DSN`
 - `NEXT_PUBLIC_SENTRY_CSP_REPORT_ENDPOINT`
 - `SENTRY_ORG`
